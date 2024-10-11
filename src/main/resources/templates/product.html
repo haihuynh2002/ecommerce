@@ -1,0 +1,181 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{common/admin :: head}"></head>
+  <body>
+    <header th:replace="~{common/admin :: header}"></header>
+    <div id="layoutSidenav">
+      <div th:replace="~{common/admin :: sidebar}"></div>
+
+      <div id="layoutSidenav_content">
+        <main>
+          <div class="container-fluid p-4">
+            <div class="card mb-4 shadow">
+              <div class="card-header">
+                <div class="d-sm-flex align-items-center justify-content-between">
+                  <h3 class="h3">
+                    <i class="fa-solid fa-book"></i>
+                    Book
+                  </h3>
+                  <button id="addBookBtn" class="btn btn-success">Add</button>
+                </div>
+              </div>
+              <div class="card-body p-3">
+                <div class="table-responsive">
+                    <table id="productsTable" class="display">
+                        <thead>
+                          <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Price</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+          </div>
+        </main>
+      </div>
+        <div
+          class="modal fade"
+          id="productModal"
+          tabindex="-1"
+          aria-labelledby="productModal"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <form id="productForm">
+                <div class="modal-header">
+                  <h5 class="modal-title w-100 text-center">Book Details</h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div class="container">
+                    <input type="hidden" id="productId" name="producId" />
+                    <div class="form-group row mb-3">
+                      <label for="title" class="col-sm-6 col-form-label">
+                        Name
+                      </label>
+                      <div class="col-sm-6">
+                        <input type="text" id="name" name="name" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="form-group row mb-3">
+                      <label for="ourPrice" class="col-sm-6 col-form-label">
+                        Price
+                      </label>
+                      <div class="col-sm-6">
+                        <input type="number" id="price" name="price" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="form-group row mb-3">
+                      <label for="author" class="col-sm-6 col-form-label">
+                        Brand:
+                      </label>
+                      <div class="col-sm-6">
+                        <input type="text" id="brandName" name="brandName" class="form-control" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+                </div>
+              </h:form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer th:replace="~{common/admin :: footer}"></footer>
+
+    <script>
+      $(document).ready(function () {
+        // Initialize DataTable
+        let table = $("#productsTable").DataTable({
+          ajax: {
+            url: "/api/product",
+            dataSrc: "",
+          },
+          columns: [
+            { data: "id" },
+            { data: "name" },
+            { data: "brandName" },
+            { data: "price" },
+            {
+              data: null,
+              render: function (data, type, row) {
+                return `<button onclick="editBook(${row.id})" class="btn btn-primary">Edit</button>
+                                    <button onclick="deleteBook(${row.id})" class="btn btn-danger">Delete</button>`;
+              },
+            },
+          ],
+        });
+
+        // Add product
+        $("#addBookBtn").on("click", function () {
+          $("#productForm")[0].reset();
+          $("#productId").val("");
+          $("#productModal").modal("show");
+        });
+
+        // Save product (create or update)
+        $("#productForm").on("submit", function (e) {
+          e.preventDefault();
+          let productId = $("#productId").val();
+          let method = productId ? "PUT" : "POST";
+          let url = productId ? `/api/product/${productId}` : "/api/product";
+
+          $.ajax({
+            url: url,
+            method: method,
+            contentType: "application/json",
+            data: JSON.stringify({
+              name: $("#name").val(),
+              brandName: $("#brandName").val(),
+              price: $("#price").val(),
+            }),
+            success: function () {
+              $("#productModal").modal("hide");
+              table.ajax.reload();
+            },
+          });
+        });
+      });
+
+      // Edit product
+      function editBook(id) {
+        $.get(`/api/product/${id}`, function (data) {
+          $("#productId").val(data.id);
+          $("#name").val(data.name);
+          $("#brandName").val(data.brandName);
+          $("#price").val(data.price);
+          $("#productModal").modal("show");
+        });
+      }
+
+      // Delete product
+      function deleteBook(id) {
+        if (confirm("Are you sure you want to delete this product?")) {
+          $.ajax({
+            url: `/api/product/${id}`,
+            method: "DELETE",
+            success: function () {
+              $("#productsTable").DataTable().ajax.reload();
+            },
+          });
+        }
+      }
+    </script>
+  </body>
+</html>

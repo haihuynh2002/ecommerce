@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{common/base :: head}"></head>
+
+<body>
+    <div th:replace="~{common/base :: loader}"></div>
+    <header th:replace="~{common/base :: header}"></header>
+    <div class="padding-large">
+        <div class="container">
+            <div class="card">
+                <div class="card-header"></div>
+                <div class="card-body">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
+                                aria-selected="true">Home</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
+                                aria-selected="false">Profile</button>
+                            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact"
+                                aria-selected="false">Contact</button>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                            aria-labelledby="nav-home-tab">
+                            <div class="container p-5">
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <label>User Id</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p id="userId"></p>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <label>Full Name</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p id="fullName"></p>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <label>Username</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p id="username"></p>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <label>Phone</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p id="phone"></p>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <label>Gender</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p id="gender"></p>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <label>Join in</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p id="createdAt"></p>
+                                    </div>
+                                </div>
+                                <div class="row mt-5">
+                                    <div class="col text-center">
+                                        <button type="submit" id="editProfile"
+                                            class="btn btn-secondary btn-rounded" >Edit Profile</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            ...</div>
+                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                            ...</div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col">
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="tab-pane fade" id="payment" role="tabpanel" aria-labelledby="payment-tab">
+                                <div class="row mt-3">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-header" id="cardName"></div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label>Type</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p id="type"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label>Holder name</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p id="holderName"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label>Card number</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p id="cardNumber"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label>Expiry month</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p id="expiryMonth"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label>Expiry year</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p id="expiryYear"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label>CVC</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p id="cvc"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-3">
+                                                    <div class="col-md-12">
+                                                        <btton type="button" class="btn btn-secondary btn-rounded">Edit
+                                                            Payment</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col text-center">
+                                        <button type="button" class="btn btn-success btn-rounded">Add
+                                            Payment</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+        <div class="modal-dialog ">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="profileModalLabel">Edit Profile</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <input type="hidden" id="inputUserId">
+                <div class="mb-3">
+                  <label for="inputFirstName" class="col-form-label">First name:</label>
+                  <input type="text" class="form-control" id="inputFirstName">
+                </div>
+                <div class="mb-3">
+                  <label for="inputLastName" class="col-form-label">Last name:</label>
+                  <input type="text" class="form-control" id="inputLastName">
+                </div>
+                <div class="mb-3">
+                    <label for="inputUsername" class="col-form-label">Username:</label>
+                    <input type="text" class="form-control" id="inputUsername">
+                  </div>
+                  <div class="mb-3">
+                    <label for="inputGender" class="col-form-label">Gender:</label>
+                    <input type="text" class="form-control" id="inputGender">
+                  </div>
+                  <div class="mb-3">
+                    <label for="inputPhone" class="col-form-label">Phone:</label>
+                    <input type="text" class="form-control" id="inputPhone">
+                  </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="saveProfile">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <footer th:replace="~{common/base :: footer}"></footer>
+    <script>
+        function loadUser(user) {
+            $('#userId').text(user.id);
+            $('#fullName').text(user.firstName + " " + user.lastName);
+            $('#username').text(user.username);
+            $('#phone').text(user.phone);
+            $('#gender').text(user.gender);
+            $('#createdAt').text(user.createdAt);
+
+            $('#inputUserId').val(user.id);
+            $('#inputFirstName').val(user.firstName);
+            $('#inputLastName').val(user.lastName);
+            $('#inputUsername').val(user.username);
+            $('#inputGender').val(user.gender);
+            $('#inputPhone').val(user.phone);
+        }
+
+        function loadPayment(payment) {
+            $('#cardName').text(payment.cardName);
+            $('#type').text(payment.type);
+            $('#holderName').text(payment.holderName);
+            $('#cardNumber').text(payment.cardNumber);
+            $('#expiryMonth').text(payment.expiryMonth);
+            $('#expiryYear').text(payment.expiryYear);
+            $('#cvc').text(payment.cvc);
+        }
+
+        $(document).ready(function () {
+            $.ajax({
+                url: '/api/profile',
+                success: function (user) {
+                    loadUser(user);
+                    user.payments.forEach(loadPayment);
+                }
+            })
+
+            $("#editProfile").click(function () {
+                $('#profileModal').modal('show');
+            });
+
+            $("#saveProfile").click(function () {
+                let user = {
+                    id: $('#inputUserId').val(),
+                    firstName: $('#inputFirstName').val(),
+                    lastName: $('#inputLastName').val(),
+                    username: $('#inputUsername').val(),
+                    gender: $('#inputGender').val(),
+                    phone: $('#inputPhone').val()
+                }
+
+                $.ajax({
+                    url: '/api/profile',
+                    method: 'PUT',
+                    contentType: "application/json",
+                    data: JSON.stringify(user),
+                    success: function (user) {
+                        $('#profileModal').modal('hide');
+                        loadUser(user);
+                    }
+                });
+            });
+
+        });
+    </script>
+</body>
+
+</html>
