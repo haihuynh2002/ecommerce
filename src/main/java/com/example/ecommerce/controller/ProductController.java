@@ -21,7 +21,6 @@ import com.example.ecommerce.model.Product;
 import com.example.ecommerce.service.ProductService;
 import com.example.ecommerce.service.UserService;
 
-
 /**
  *
  * @author infoh
@@ -46,7 +45,7 @@ public class ProductController {
         Product product = ps.findById(id);
         return ResponseEntity.ok(product);
     }
-    
+
     @PostMapping
     public ResponseEntity<Product> create(@RequestBody Product product) {
         ps.create(product);
@@ -60,7 +59,7 @@ public class ProductController {
         ps.update(product);
         return ResponseEntity.ok(product);
     }
-    
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Long id) {
         ps.delete(id);
