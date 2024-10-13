@@ -1,0 +1,61 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{common/admin :: head}"></head>
+<body>
+    <header th:replace="~{common/admin :: header}"></header>
+    <div id="layoutSidenav">
+      <div th:replace="~{common/admin :: sidebar}"></div>
+      <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Product Tables</h1>
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <div class="d-flex justify-content-between align-items-center">
+              <h6 class="m-0 font-weight-bold text-primary col-6">Product Data</h6>
+              <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#productModal">Add</a>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="productsTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr class="text-center">
+                    <th>Id</th>
+                    <th>Product name</th>
+                    <th>Brand name</th>
+                    <th>In stock</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Image</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr class="text-center">
+                    <th>Id</th>
+                    <th>Product name</th>
+                    <th>Brand name</th>
+                    <th>In stock</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Image</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                  </tr>
+                </tfoot>
+                <tbody class="text-center">
+                  <!-- Các dòng dữ liệu sẽ được điền ở đây bằng JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer th:replace="~{common/admin :: footer}"></footer>
+    <script>
+
+    </script>
+</body>
+</html>

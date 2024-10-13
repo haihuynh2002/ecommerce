@@ -17,7 +17,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js" crossorigin="anonymous"></script>
   </head>
 
   <header th:fragment="header">
@@ -192,20 +192,18 @@
               </div>
             </nav>
           </div>
-          <div class="sb-sidenav-menu-heading">Addons</div>
-          <a class="nav-link" href="charts.html">
-            <div class="sb-nav-link-icon">
-              <i class="fas fa-chart-area"></i>
-            </div>
-            Charts
+          <div class="sb-sidenav-menu-heading">Manager</div>
+          <a class="nav-link" href="/products">
+            <div class="sb-nav-link-icon"><i class="fa-solid fa-shirt"></i></div>
+            Product
           </a>
-          <a class="nav-link" href="localhost:8080/home">
-            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-            Tables
-          </a>
-          <a class="nav-link" href="localhost:8080/user">
-            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+          <a class="nav-link" href="/users">
+            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
             User
+          </a>
+          <a class="nav-link" href="/orders">
+            <div class="sb-nav-link-icon"><i class="fas fa-truck-fast"></i></div>
+            Order
           </a>
         </div>
       </div>

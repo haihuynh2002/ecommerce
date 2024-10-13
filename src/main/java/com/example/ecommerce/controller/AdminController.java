@@ -24,4 +24,9 @@ public class AdminController {
     public String userManage() {
         return "user";
     }
+
+    @GetMapping("/orders")
+    public String orderManage() {
+        return "order";
+    }
 }
