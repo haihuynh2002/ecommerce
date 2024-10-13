@@ -15,8 +15,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 // @RequestMapping("/admin")
 public class AdminController {
-    @GetMapping("/home")
-    public String homeAdmin() {
+    @GetMapping("/products")
+    public String productManage() {
         return "product";
+    }
+
+    @GetMapping("/users")
+    public String userManage() {
+        return "user";
     }
 }
