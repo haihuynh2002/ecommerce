@@ -37,21 +37,19 @@ public class UserService {
 
     public User findById(Long id) {
         return ur.findById(id).orElseThrow(
-                () -> new UsernameNotFoundException("User is not found")
-        );
+                () -> new UsernameNotFoundException("User is not found"));
     }
 
     public User findByAuthentication(Authentication auth) {
         return ur.findByUsername(auth.getName()).orElseThrow(
-                () -> new UsernameNotFoundException("Email is not found")
-        );
+                () -> new UsernameNotFoundException("Email is not found"));
     }
 
     public User create(User user) {
         ur.findByUsername(user.getUsername()).ifPresent(u -> {
             throw new RuntimeException("user exists");
         });
-        
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return ur.save(user);
     }
@@ -59,8 +57,7 @@ public class UserService {
     public User findUserById(Long id) {
         return ur.findById(id)
                 .orElseThrow(
-                        () -> new RuntimeException("User not found")
-                );
+                        () -> new RuntimeException("User not found"));
     }
 
     public List<User> findAll() {
@@ -81,6 +78,8 @@ public class UserService {
         user.setLastName(newUser.getLastName());
         user.setPhone(newUser.getPhone());
         user.setGender(newUser.getGender());
+        user.setEnabled(newUser.isEnabled());
+        user.setRole(newUser.getRole());
         return ur.save(user);
     }
 

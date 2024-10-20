@@ -47,10 +47,10 @@ public class Product {
     private Date createdAt;
     @UpdateTimestamp
     private Date updateAt;
-    private String imageUrl;
+    private String imgUrl;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "product")
-    private List<OrderProduct> orderProducts =  new ArrayList<>();
+    private List<OrderProduct> orderProducts = new ArrayList<>();
 
     public boolean equals(Object obj) {
         if (this == obj)
