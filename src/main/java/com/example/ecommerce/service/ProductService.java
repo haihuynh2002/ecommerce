@@ -18,7 +18,8 @@ import com.example.ecommerce.repository.UserRepository;
 @Transactional
 public class ProductService {
 
-    private static String uploadDirectory = "src/main/resources/static/image/product/";
+    // private static String uploadDirectory =
+    // "src/main/resources/static/image/product/";
 
     @Autowired
     ProductRepository pr;
@@ -32,8 +33,7 @@ public class ProductService {
     public Product findById(Long id) {
         return pr.findById(id)
                 .orElseThrow(
-                        () -> new RuntimeException("Product not found")
-                );
+                        () -> new RuntimeException("Product not found"));
     }
 
     public List<Product> findAll() {
