@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.ecommerce.model.Payment;
 import com.example.ecommerce.model.User;
 import com.example.ecommerce.repository.UserRepository;
 
@@ -86,10 +85,5 @@ public class UserService {
 
     public void delete(User user) {
         ur.delete(user);
-    }
-
-    public void addPayment(User user, Payment payment) {
-        user.addPayment(payment);
-        ur.save(user);
     }
 }

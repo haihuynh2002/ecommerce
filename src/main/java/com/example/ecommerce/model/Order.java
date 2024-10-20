@@ -33,7 +33,7 @@ import lombok.Setter;
 @Entity
 @Setter
 @Getter
-@Table(name = "\"Order\"")
+@Table(name = "\"order\"")
 public class Order {
 
     @Id
@@ -77,10 +77,5 @@ public class Order {
         c.setTime(new Date());
         c.add(Calendar.DATE, 5);
         return c.getTime();
-    }
-
-    public void addUser(User user) {
-        this.user = user;
-        user.getOrders().add(this);
     }
 }

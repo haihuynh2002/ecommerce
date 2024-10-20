@@ -48,27 +48,7 @@ public class User {
     private Date updateAt;
     private String imageUrl;
     private String role = "USER";
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
-    private List<Order> orders = new ArrayList<>();
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Set<Payment> payments = new HashSet<>();
-
-    public void addPayment(Payment payment) {
-        this.getPayments().add(payment);
-        payment.setUser(this);
-    }
-
-    public void removePayment(Payment payment) {
-        this.getPayments().remove(payment);
-    }
-
-    public void addOrder(Order order) {
-        this.getOrders().add(order);
-        order.setUser(this);
-    }
-
+    
     public String getFullName() {
         return firstName + " " + lastName;
     }
