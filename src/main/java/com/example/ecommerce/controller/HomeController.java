@@ -20,11 +20,6 @@ public class HomeController {
         return "index.html";
     }
 
-    @GetMapping("/product")
-    public String product() {
-        return "product.html";
-    }
-
     @GetMapping("/account")
     public String account() {
         return "account.html";
