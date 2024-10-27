@@ -49,8 +49,9 @@ public class Product {
     private Date updateAt;
     private String imgUrl;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "product")
-    private List<OrderProduct> orderProducts = new ArrayList<>();
+    // @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy =
+    // "product")
+    // private List<OrderProduct> orderProducts = new ArrayList<>();
 
     public boolean equals(Object obj) {
         if (this == obj)

@@ -50,10 +50,10 @@ public class OrderProduct {
             return price.multiply(BigDecimal.valueOf(quantity));
     }
     
-    public void addOrderBook(Order order, Product product) {
+    public void addOrderProduct(Order order, Product product) {
         this.product = product;
         this.order = order;
-        product.getOrderProducts().add(this);
-        order.getOrderProducts().add(this);
+        // product.getOrderProducts().add(this);
+        // order.getOrderProducts().add(this);
     }
 }

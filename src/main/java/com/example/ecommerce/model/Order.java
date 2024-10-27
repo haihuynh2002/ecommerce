@@ -50,26 +50,26 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
-    private List<OrderProduct> orderProducts = new ArrayList<>();
+    // @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
+    // private List<OrderProduct> orderProducts = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "payment_id")
     private Payment payment;
 
-    @Transient
-    public BigDecimal getTotal() {
-        return orderProducts.stream()
-                .map(line -> line.getTotal())
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
+    // @Transient
+    // public BigDecimal getTotal() {
+    // return orderProducts.stream()
+    // .map(line -> line.getTotal())
+    // .reduce(BigDecimal.ZERO, BigDecimal::add);
+    // }
 
-    @Transient
-    public int getQuantity() {
-        return orderProducts.stream()
-                .mapToInt(line -> line.getQuantity())
-                .sum();
-    }
+    // @Transient
+    // public int getQuantity() {
+    // return orderProducts.stream()
+    // .mapToInt(line -> line.getQuantity())
+    // .sum();
+    // }
 
     @Transient
     public Date getShippingDate() {

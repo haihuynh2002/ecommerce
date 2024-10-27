@@ -8,10 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.ecommerce.model.Order;
 import com.example.ecommerce.repository.OrderProductRepository;
 import com.example.ecommerce.repository.OrderRepository;
 import com.example.ecommerce.repository.PaymentRepository;
 import com.example.ecommerce.repository.UserRepository;
+
+import java.util.List;
 
 /**
  *
@@ -28,7 +31,7 @@ public class OrderService {
     ProductService bs;
     
     @Autowired
-    OrderProductRepository obr;
+    OrderProductRepository opr;
     
     @Autowired
     OrderRepository or;
@@ -38,5 +41,9 @@ public class OrderService {
     
     @Autowired
     UserRepository ur;
+
+    public List<Order> findAll() {
+        return or.findAll();
+    }
     
 }

@@ -17,31 +17,29 @@
           </div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered" id="productsTable" width="100%" cellspacing="0">
+              <table class="table table-bordered" id="ordersTable" width="100%" cellspacing="0">
                 <thead>
                   <tr class="text-center">
-                    <th>Id</th>
-                    <th>Product name</th>
-                    <th>Brand name</th>
-                    <th>In stock</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Image</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th>Order Id</th>
+                    <th>Customer name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Order day</th>
+                    <th>Delivery day</th>
+                    <th>Status</th>
+                    <th>Detail</th>
                   </tr>
                 </thead>
                 <tfoot>
                   <tr class="text-center">
-                    <th>Id</th>
-                    <th>Product name</th>
-                    <th>Brand name</th>
-                    <th>In stock</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Image</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th>Order Id</th>
+                    <th>Customer name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Order day</th>
+                    <th>Delivery day</th>
+                    <th>Status</th>
+                    <th>Detail</th>
                   </tr>
                 </tfoot>
                 <tbody class="text-center">
@@ -55,7 +53,32 @@
     </div>
     <footer th:replace="~{common/admin :: footer}"></footer>
     <script>
-
+      $(document).ready(function(){
+        // Initialize DataTable
+        let table = $("#ordersTable").DataTable({
+          ajax: {
+            url: "/api/order",
+            dataSrc: "",
+          },
+          columns: [
+            { data: "id" },
+            { data: "createAt" },
+            { data: "updateAt" },
+            {
+              data: "status",
+              render: function (data) {
+                return data ? `<span class="badge rounded-pill bg-success">In process</span>` : `<span class="badge rounded-pill bg-danger">Done</span>`;
+              }
+            },
+            {
+              data: "id",
+              render: function (data) {
+                return `<a href="#">Detail</a>`;
+              },
+            }
+          ],
+        });
+      })
     </script>
 </body>
 </html>

@@ -49,8 +49,9 @@ public class User {
     private String imageUrl;
     private String role = "USER";
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
-    private List<Order> orders = new ArrayList<>();
+    // @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy =
+    // "user")
+    // private List<Order> orders = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Payment> payments = new HashSet<>();
@@ -64,10 +65,10 @@ public class User {
         this.getPayments().remove(payment);
     }
 
-    public void addOrder(Order order) {
-        this.getOrders().add(order);
-        order.setUser(this);
-    }
+    // public void addOrder(Order order) {
+    // this.getOrders().add(order);
+    // order.setUser(this);
+    // }
 
     public String getFullName() {
         return firstName + " " + lastName;
