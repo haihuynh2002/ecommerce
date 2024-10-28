@@ -57,4 +57,8 @@ public class Order {
         c.add(Calendar.DATE, 5);
         return c.getTime();
     }
+
+    public User getUser() {
+        return user != null ? user : null;
+    }
 }

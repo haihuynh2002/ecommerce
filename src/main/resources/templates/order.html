@@ -7,12 +7,10 @@
       <div th:replace="~{common/admin :: sidebar}"></div>
       <div class="container-fluid">
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">Product Tables</h1>
         <div class="card shadow mb-4">
           <div class="card-header py-3">
             <div class="d-flex justify-content-between align-items-center">
               <h6 class="m-0 font-weight-bold text-primary col-6">Product Data</h6>
-              <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#productModal">Add</a>
             </div>
           </div>
           <div class="card-body">
@@ -62,8 +60,11 @@
           },
           columns: [
             { data: "id" },
-            { data: "createAt" },
-            { data: "updateAt" },
+            { data: "customerName" },
+            { data: "phone" }, 
+            { data: "email" }, 
+            { data: "createdAt" },
+            { data: "shippingDate" },
             {
               data: "status",
               render: function (data) {
@@ -73,12 +74,13 @@
             {
               data: "id",
               render: function (data) {
-                return `<a href="#">Detail</a>`;
+                return `<a href="#" class="view-details">Detail</a>`;
               },
             }
           ],
         });
-      })
+      });
     </script>
+    
 </body>
 </html>

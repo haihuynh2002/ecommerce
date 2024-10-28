@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.ecommerce.model.Order;
+import com.example.ecommerce.dto.OrderDTO;
 import com.example.ecommerce.service.OrderService;
 import com.example.ecommerce.service.UserService;
 
@@ -29,8 +29,9 @@ public class OrderController {
     UserService us;
 
     @GetMapping
-    public List<Order> getAll() {
+    public List<OrderDTO> getAll() {
         return os.findAll();
     }
+
 
 }
