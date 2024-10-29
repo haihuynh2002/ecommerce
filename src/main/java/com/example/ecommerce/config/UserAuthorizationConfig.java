@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
 /**
@@ -29,12 +30,13 @@ public class UserAuthorizationConfig {
         http.csrf(c -> c.disable());
                 
         http.cors(c -> c.disable());
+
+        http.sessionManagement( sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
         
         http.authorizeHttpRequests(c -> 
-                c.anyRequest().permitAll()
-//                c.requestMatchers("/home").hasRole("USER")
-//                .requestMatchers("/user/**").permitAll()
-//                .anyRequest().authenticated()
+               c.requestMatchers("/profile").hasRole("USER")
+               .requestMatchers("/checkout").hasRole("USER")
+               .anyRequest().permitAll()
         );
         
         http.logout(c -> c.logoutUrl("/auth/logout")

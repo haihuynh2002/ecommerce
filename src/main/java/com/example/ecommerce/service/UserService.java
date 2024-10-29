@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.ecommerce.dto.PasswordDto;
 import com.example.ecommerce.model.User;
 import com.example.ecommerce.repository.UserRepository;
 
@@ -85,5 +86,23 @@ public class UserService {
 
     public void delete(User user) {
         ur.delete(user);
+    }
+
+    public void changePassword(User user, PasswordDto passwordDto) {
+        System.out.println(user.getPassword());
+        System.out.println(passwordEncoder.encode("123"));
+        System.out.println(passwordDto.getOldPassword());
+        System.out.println(passwordEncoder.encode(passwordDto.getOldPassword()));
+        
+        if(!passwordDto.getNewPassword().equals(passwordDto.getConfirmPassword())) {
+            throw new RuntimeException("Password does not match");
+        }
+
+        if(!passwordEncoder.matches(passwordDto.getOldPassword(), user.getPassword())) {
+            throw new RuntimeException("Old password is not correct");
+        }
+
+        user.setPassword(passwordEncoder.encode(passwordDto.getNewPassword()));
+        ur.save(user);
     }
 }
