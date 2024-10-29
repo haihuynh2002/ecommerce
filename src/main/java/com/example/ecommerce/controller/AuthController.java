@@ -31,13 +31,14 @@ public class AuthController {
     public String login(Model model) {
         User user = new User();
         model.addAttribute("user", user);
-        return "login.html";
+        return "login";
     }
+    
     @GetMapping("/register")
     public String register(Model model) {
         User user = new User();
         model.addAttribute("user", user);
-        return "register.html";
+        return "register";
     }
 
     @PostMapping("/register")

@@ -15,12 +15,12 @@
                             <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
                                 data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
                                 aria-selected="true">Home</button>
-                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab"
-                                data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
-                                aria-selected="false">Profile</button>
-                            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab"
-                                data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact"
-                                aria-selected="false">Contact</button>
+                            <button class="nav-link" id="nav-change-password-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-change-password" type="button" role="tab"
+                                aria-controls="nav-change-password" aria-selected="false">Change Password</button>
+                            <button class="nav-link" id="nav-payments-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-payment" type="button" role="tab" aria-controls="nav-payment"
+                                aria-selected="false">Payments</button>
                         </div>
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
@@ -78,91 +78,59 @@
                                 <div class="row mt-5">
                                     <div class="col text-center">
                                         <button type="submit" id="editProfile"
-                                            class="btn btn-secondary btn-rounded" >Edit Profile</button>
+                                            class="btn btn-secondary btn-rounded">Edit Profile</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                            ...</div>
-                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                            ...</div>
-                    </div>
-                </div>
-
-
-                <div class="row">
-                    <div class="col">
-                        <div class="tab-content profile-tab" id="myTabContent">
-                            <div class="tab-pane fade" id="payment" role="tabpanel" aria-labelledby="payment-tab">
+                        <div class="tab-pane fade" id="nav-change-password" role="tabpanel"
+                            aria-labelledby="nav-change-password-tab">
+                            <div class="container p-5">
                                 <div class="row mt-3">
-                                    <div class="col">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <label>Type</label>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <p id="type"></p>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <label>Holder name</label>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <p id="holderName"></p>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <label>Card number</label>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <p id="cardNumber"></p>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <label>Expiry month</label>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <p id="expiryMonth"></p>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <label>Expiry year</label>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <p id="expiryYear"></p>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <label>CVC</label>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <p id="cvc"></p>
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-3">
-                                                    <div class="col-md-12">
-                                                        <btton type="button" class="btn btn-secondary btn-rounded">Edit
-                                                            Payment</button>
-                                                    </div>
-                                                </div>
+                                    <!-- Change Password Form -->
+                                    <form id="changePasswordForm">
+                                        <div class="row mb-3">
+                                            <label for="oldPassword" class="col-md-4 col-lg-3 col-form-label">Current
+                                                Password</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input id="oldPassword" class="form-control" />
                                             </div>
                                         </div>
-                                    </div>
+
+                                        <div class="row mb-3">
+                                            <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New
+                                                Password</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input id="newPassword" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="confirmPassword"
+                                                class="col-md-4 col-lg-3 col-form-label">Re-enter New
+                                                Password</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input id="confirmPassword" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <div class="form-group">
+                                                <input type="submit" class="btn btn-primary"
+                                                    value="Chang Password"></input>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <!-- End Change Password Form -->
                                 </div>
-                                <div class="row mt-3">
-                                    <div class="col text-center">
-                                        <button type="button" class="btn btn-success btn-rounded">Add
-                                            Payment</button>
-                                    </div>
-                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-payment" role="tabpanel" aria-labelledby="nav-payment-tab">
+                            <div class="container p-5" id="payment-content">
+                                
+                            </div>
+                            <div>
+                                <button class="btn btn-primary" id="addPayment">Add Payment</button>
                             </div>
                         </div>
                     </div>
@@ -172,44 +140,92 @@
     </div>
 
     <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
-        <div class="modal-dialog ">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="profileModalLabel">Edit Profile</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form>
-                <input type="hidden" id="inputUserId">
-                <div class="mb-3">
-                  <label for="inputFirstName" class="col-form-label">First name:</label>
-                  <input type="text" class="form-control" id="inputFirstName">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="profileModalLabel">Edit Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="mb-3">
-                  <label for="inputLastName" class="col-form-label">Last name:</label>
-                  <input type="text" class="form-control" id="inputLastName">
+                <div class="modal-body">
+                    <form>
+                        <input type="hidden" id="inputUserId">
+                        <div class="mb-3">
+                            <label for="inputFirstName" class="col-form-label">First name:</label>
+                            <input type="text" class="form-control" id="inputFirstName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputLastName" class="col-form-label">Last name:</label>
+                            <input type="text" class="form-control" id="inputLastName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputUsername" class="col-form-label">Username:</label>
+                            <input type="text" class="form-control" id="inputUsername">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputGender" class="col-form-label">Gender:</label>
+                            <input type="text" class="form-control" id="inputGender">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputPhone" class="col-form-label">Phone:</label>
+                            <input type="text" class="form-control" id="inputPhone">
+                        </div>
+                    </form>
                 </div>
-                <div class="mb-3">
-                    <label for="inputUsername" class="col-form-label">Username:</label>
-                    <input type="text" class="form-control" id="inputUsername">
-                  </div>
-                  <div class="mb-3">
-                    <label for="inputGender" class="col-form-label">Gender:</label>
-                    <input type="text" class="form-control" id="inputGender">
-                  </div>
-                  <div class="mb-3">
-                    <label for="inputPhone" class="col-form-label">Phone:</label>
-                    <input type="text" class="form-control" id="inputPhone">
-                  </div>
-              </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveProfile">Save changes</button>
+                </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" id="saveProfile">Save changes</button>
-            </div>
-          </div>
         </div>
-      </div>
+    </div>
+
+    <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="paymentModalLabel">Edit Payment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input type="hidden" id="inputPaymentId">
+                        <div class="mb-3">
+                            <label for="inputType" class="col-form-label">Card Type:</label>
+                            <input type="text" class="form-control" id="inputType">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputCardName" class="col-form-label">Card Name:</label>
+                            <input type="text" class="form-control" id="inputCardName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputCardNumber" class="col-form-label">Card Number:</label>
+                            <input type="number" class="form-control" id="inputCardNumber">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputExpiryMonth" class="col-form-label">Expiry Month:</label>
+                            <input type="number" class="form-control" id="inputExpiryMonth">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputExpiryYear" class="col-form-label">Expiry Year:</label>
+                            <input type="number" class="form-control" id="inputExpiryYear">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputCvc" class="col-form-label">CVC:</label>
+                            <input type="number" class="form-control" id="inputCvc">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputHolderName" class="col-form-label">Holder Name:</label>
+                            <input type="text" class="form-control" id="inputHolderName">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="savePayment">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer th:replace="~{common/base :: footer}"></footer>
     <script>
@@ -229,6 +245,50 @@
             $('#inputPhone').val(user.phone);
         }
 
+        function loadPaymentModal(payment) {
+            $('#inputPaymentId').val(payment.id);
+            $('#inputType').val(payment.type);
+            $('#inputCardName').val(payment.cardName);
+            $('#inputCardNumber').val(payment.cardNumber);
+            $('#inputExpiryMonth').val(payment.expiryMonth);
+            $('#inputExpiryYear').val(payment.expiryYear);
+            $('#inputCvc').val(payment.cvc);
+            $('#inputHolderName').val(payment.holderName);
+        }
+
+        function clearPaymentModal() {
+            $('#inputPaymentId').val('');
+            $('#inputType').val('');
+            $('#inputCardName').val('');
+            $('#inputCardNumber').val('');
+            $('#inputExpiryMonth').val('');
+            $('#inputExpiryYear').val('');
+            $('#inputCvc').val('');
+            $('#inputHolderName').val('');
+        }
+
+        function loadPayments(userId) {
+            $.ajax({
+                url: '/api/payment',
+                type: 'GET',
+                success: function (payments) {
+                    $('#payment-content').html(payments.map(payment => `
+                                    <div class="row mb-3">
+                                        <label for="" class="col-md-4 col-lg-3 ">${payment.type}</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <p>${payment.cardName}</p>
+                                            <p>${payment.holderName}</p>
+                                            <p>${payment.cardNumber} ${payment.cvc}</p>
+                                            <p>${payment.expiryMonth}/${payment.expiryYear}</p>
+                                            <a role="button" class="fw-medium text-capitalize me-2" onclick="handleEditPayment(${payment.id})">Edit</a>
+                                            <a role="button" class="fw-medium text-capitalize me-2" onclick="handleDeletePayment(${payment.id})">Delete</a>
+                                        </div>
+                                    </div>
+                                `).join(''));
+                }
+            })
+        }
+
         function loadPayment(payment) {
             $('#cardName').text(payment.cardName);
             $('#type').text(payment.type);
@@ -239,14 +299,43 @@
             $('#cvc').text(payment.cvc);
         }
 
+        function handleEditPayment(paymentId) {
+            $.ajax({
+                url: '/api/payment/' + paymentId,
+                type: 'GET',
+                success: function (payment) {
+                    loadPaymentModal(payment);
+                    $('#paymentModal').modal('show');
+                }
+            })
+        }
+
+        function handleDeletePayment(paymentId) {
+            $.ajax({
+                url: '/api/payment/' + paymentId,
+                type: 'DELETE',
+                success: function () {
+                    toastr.success('Payment deleted', 'Success');
+                    loadPayments();
+                }
+            });
+        }
+
+        function resetPasswordForm() {
+            $('#oldPassword').val('');
+            $('#newPassword').val('');
+            $('#confirmPassword').val('');
+        }
+
         $(document).ready(function () {
             $.ajax({
                 url: '/api/profile',
                 success: function (user) {
                     loadUser(user);
-                    user.payments.forEach(loadPayment);
                 }
             })
+
+            loadPayments();
 
             $("#editProfile").click(function () {
                 $('#profileModal').modal('show');
@@ -274,6 +363,57 @@
                 });
             });
 
+            $("#changePasswordForm").submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: '/api/profile/change-password',
+                    method: 'PUT',
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        oldPassword: $('#oldPassword').val(),
+                        newPassword: $('#newPassword').val(),
+                        confirmPassword: $('#confirmPassword').val()
+                    }),
+                    success: function () {
+                        toastr.success('Password changed successfully', 'Change Password');
+                        resetPasswordForm();
+                    },
+                    error: function (e) {
+                        console.log(e);
+                        toastr.error(e.responseText, 'Change Password');
+                    }
+                });
+
+            });
+            
+            $("#addPayment").click(function () {
+                clearPaymentModal();
+                $('#paymentModal').modal('show');
+            });
+
+            $("#savePayment").click(function () {
+                let payment = { 
+                    id: $('#inputPaymentId').val(),
+                    type: $('#inputType').val(),    
+                    cardName: $('#inputCardName').val(),
+                    cardNumber: $('#inputCardNumber').val(),
+                    expiryMonth: $('#inputExpiryMonth').val(),
+                    expiryYear: $('#inputExpiryYear').val(),
+                    cvc: $('#inputCvc').val(),
+                    holderName: $('#inputHolderName').val()
+                }
+                $.ajax({
+                    url: payment.id ? '/api/payment/' + payment.id : '/api/payment',
+                    type: payment.id ? 'PUT' : 'POST',
+                    contentType: "application/json",
+                    data: JSON.stringify(payment),
+                    success: function (payment) {
+                        toastr.success('Payment saved', 'Success');
+                        $('#paymentModal').modal('hide');   
+                        loadPayments();
+                    }
+                });
+            });
         });
     </script>
 </body>

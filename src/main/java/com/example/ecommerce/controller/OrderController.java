@@ -6,16 +6,10 @@ package com.example.ecommerce.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.ecommerce.service.OrderService;
 import com.example.ecommerce.service.UserService;
 
-/**
- *
- * @author infoh
- */
-@RequestMapping("/order")
 @Controller
 public class OrderController {
 
@@ -24,4 +18,6 @@ public class OrderController {
 
     @Autowired
     UserService us;
+
+
 }

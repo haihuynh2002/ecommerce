@@ -37,4 +37,8 @@ public class Payment {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public String toString() {
+        return String.format("%s\n%s\n%d %d\n%d/%d", cardName, holderName, cardNumber,  cvc, expiryMonth, expiryYear);
+    }
 }

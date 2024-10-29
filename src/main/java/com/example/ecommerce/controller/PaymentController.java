@@ -4,11 +4,16 @@
  */
 package com.example.ecommerce.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,12 +23,13 @@ import com.example.ecommerce.model.User;
 import com.example.ecommerce.service.PaymentService;
 import com.example.ecommerce.service.UserService;
 
+
 /**
  *
  * @author infoh
  */
 @RestController
-@RequestMapping("/payment")
+@RequestMapping("/api/payment")
 public class PaymentController {
 
     @Autowired
@@ -32,7 +38,19 @@ public class PaymentController {
     @Autowired
     PaymentService ps;
 
-    @PostMapping("/create")
+    @GetMapping
+    public List<Payment> getByUser(Authentication auth) {
+        User user = us.findByAuthentication(auth);
+        return ps.findByUserId(user.getId());
+    }
+    
+     @GetMapping("/{id}")
+    public ResponseEntity<Payment> get(@PathVariable("id") Long id) {
+        Payment payment = ps.findById(id);
+        return ResponseEntity.ok(payment);
+    }
+
+    @PostMapping
     public ResponseEntity<Payment> create(@RequestBody Payment payment, 
             Authentication auth) {
         User user = us.findByAuthentication(auth);
@@ -40,13 +58,14 @@ public class PaymentController {
         return ResponseEntity.ok(payment);
     }
 
-    @PostMapping("/update")
-    public ResponseEntity<Payment> update(@RequestBody Payment payment) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Payment> update(@RequestBody Payment payment, @PathVariable("id") Long id) {
+        payment.setId(id);
         ps.update(payment);
         return ResponseEntity.ok(payment);
     }
     
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Long id) {
         ps.delete(id);
     }

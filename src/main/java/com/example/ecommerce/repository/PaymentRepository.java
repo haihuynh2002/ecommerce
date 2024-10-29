@@ -4,7 +4,7 @@
  */
 package com.example.ecommerce.repository;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -15,5 +15,5 @@ import com.example.ecommerce.model.Payment;
  * @author infoh
  */
 public interface PaymentRepository extends JpaRepository<Payment, Long>{
-    Optional<Payment> findByUserId(Long id);
+    List<Payment> findByUserId(Long id);
 }
