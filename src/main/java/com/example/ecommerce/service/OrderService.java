@@ -9,11 +9,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.ecommerce.dto.OrderDTO;
+import com.example.ecommerce.dto.OrderDetailDTO;
+import com.example.ecommerce.dto.OrderProductDTO;
+import com.example.ecommerce.model.Order;
+import com.example.ecommerce.model.Product;
+import com.example.ecommerce.model.OrderProduct;
+import com.example.ecommerce.model.User;
 import com.example.ecommerce.repository.OrderProductRepository;
 import com.example.ecommerce.repository.OrderRepository;
 import com.example.ecommerce.repository.PaymentRepository;
 import com.example.ecommerce.repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +36,7 @@ public class OrderService {
     UserService us;
     
     @Autowired
-    ProductService bs;
+    ProductService pr;
     
     @Autowired
     OrderProductRepository opr;
@@ -38,7 +45,7 @@ public class OrderService {
     OrderRepository or;
     
     @Autowired
-    PaymentRepository pr;
+    PaymentRepository pmr;
     
     @Autowired
     UserRepository ur;
@@ -57,6 +64,32 @@ public class OrderService {
             return dto;
         }).collect(Collectors.toList());
     }
-    
 
+    public OrderDetailDTO getDetail(Long orderID) {
+        Order order = or.findById(orderID).get();
+        User user = order.getUser();
+        List<OrderProductDTO> products = transOPToDTO(orderID);
+        OrderDetailDTO dto = new OrderDetailDTO();
+        dto.setUserEmail(user.getUsername());
+        dto.setUserName(user.getFullName());
+        dto.setUserPhone(user.getPhone());
+        dto.setOrderID(orderID);
+        dto.setCreatedAt(order.getCreatedAt());
+        dto.setOrderShippingPrice(order.getShippingPrice());
+        dto.setListProduct(products);
+        return dto;
+    }
+
+    public List<OrderProductDTO> transOPToDTO(Long orderID) {
+        List<OrderProduct> products = opr.findByOrderId(orderID);
+        List<OrderProductDTO> productsDTO = new ArrayList<>();
+        for (OrderProduct product : products) {
+            Product productInOrder = pr.findById(product.getId().getProductId());
+            OrderProductDTO newOdPDTO = new OrderProductDTO(productInOrder.getId(), productInOrder.getName(),
+                    productInOrder.getDescription(), productInOrder.getImgUrl(), product.getQuantity(),
+                    product.getPrice(), product.getTotal());
+            productsDTO.add(newOdPDTO);
+        }
+        return productsDTO;
+    }
 }

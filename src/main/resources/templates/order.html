@@ -10,7 +10,7 @@
         <div class="card shadow mb-4">
           <div class="card-header py-3">
             <div class="d-flex justify-content-between align-items-center">
-              <h6 class="m-0 font-weight-bold text-primary col-6">Product Data</h6>
+              <h4 class="m-0 font-weight-bold text-primary col-6">Orders Data</h4>
             </div>
           </div>
           <div class="card-body">
@@ -47,6 +47,68 @@
             </div>
           </div>
         </div>
+        <!-- Page Heading -->
+        <div class="my-5 p-4 rounded-3 shadow bg-white">
+          <div class="py-3">
+            <div class="d-flex justify-content-between align-items-center">
+              <h4 class="m-0 font-weight-bold text-primary col-6">Order Detail</h4>
+            </div>
+          </div>
+          <!-- Order Header -->
+          <div class="d-flex justify-content-between align-items-center order-header mb-2">
+              <h5 class="mb-0">Order ID: <span id="orderDetailID"></span></h5>
+          </div>
+          <p class="text-muted" id="timeCreate">None</p>
+  
+          <!-- Grid Layout -->
+          <div class="row gap-2 mt-4">
+              <!-- Left Column: Order Item and Order Summary -->
+              <div class="col-lg-8 border rounded-3 me-1">
+                  <div class="item-list">
+                      <div class="pt-4 mb-4 order-item">
+                          <div class="d-flex align-items-center mb-3">
+                          </div>
+                      </div>
+                  </div>
+  
+                  <!-- Order Summary -->
+                  <div class="border-top pt-4 mb-4 order-sumary">
+                    <span class="badge bg-warning text-dark bg-opacity-75">Payment pending</span>
+                    <div class="mt-3">
+                        <div class="d-flex justify-content-between">
+                            <span>Subtotal</span>
+                            <span>0.00 VND</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Discount</span>
+                            <span>0.00 VND</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Shipping</span>
+                            <span>Free shipping (0.0 lb)</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between total-row">
+                            <span>Total</span>
+                            <span>0.00 VND</span>
+                        </div>
+                    </div>
+                    <div class="mt-5 d-flex gap-2 justify-content-end">
+                        <button class="btn btn-outline-secondary btn-sm">Send invoice</button>
+                        <button class="btn btn-primary btn-sm">Collect payment</button>
+                    </div>
+                  </div>
+              </div>
+              <!-- Right Column: Customer Info -->
+              <div class="col border rounded-3">
+                  <div class="pt-4 customer-infor">
+                      <div class="mb-3 border-bottom text-center">
+                          <h5 class="h3 mb-4">Customer Infor</h5>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
       </div>
     </div>
     <footer th:replace="~{common/admin :: footer}"></footer>
@@ -74,12 +136,97 @@
             {
               data: "id",
               render: function (data) {
-                return `<a href="#" class="view-details">Detail</a>`;
+                return `<a onclick="displayOrderDetail(${data})" class="view-details">Detail</a>`;
               },
             }
           ],
         });
-      });
+        });
+        function displayOrderDetail(orderId){
+          $.ajax({
+            url: "/api/order/detail/" + orderId,
+            type: "GET",
+            success: function(data){
+              $("#orderDetailID").text(data.orderID);
+              $("#timeCreate").text("Created at " + data.createdAt);
+              $(".item-list").empty();
+              $(".order-sumary").empty();
+              $(".customer-infor").empty();
+              let total= 0;
+              data.listProduct.forEach(product => {
+                let newProduct= `
+                  <div class="pt-4 mb-4 order-item">
+                      <div class="d-flex align-items-center mb-3">
+                          <img src="${product.productImgUrl}" alt="${product.productName}" class="img-thumbnail me-3" style="max-width: 100px; max-height: 100px;">
+                          <div class="flex-grow-1">
+                              <h5 class="mb-1">${product.productName}</h5>
+                              <p class="mb-0" style="max-width: 40%;">${product.productDecs}</p>
+                          </div>
+                          <div class="text-end">
+                              <p class="mb-0">${product.quantity} x ${product.price} VND</p>
+                              <p class="mb-0">${product.total} VND</p>                            
+                          </div>
+                      </div>
+                  </div>
+                `;
+                total= total + product.total;
+                $(".item-list").append(newProduct);
+              });
+              let newOrderSumary= `
+                <span class="badge bg-warning text-dark bg-opacity-75">Payment pending</span>
+                <div class="mt-3">
+                    <div class="d-flex justify-content-between">
+                        <span>Subtotal</span>
+                        <span>0.00 VND</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Discount</span>
+                        <span>0.00 VND</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Shipping</span>
+                        <span>Free shipping (0.0 lb)</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between total-row">
+                        <span>Total</span>
+                        <span>${total} VND</span>
+                    </div>
+                </div>
+                <div class="mt-5 d-flex gap-2 justify-content-end">
+                    <button class="btn btn-outline-secondary btn-sm">Send invoice</button>
+                    <button class="btn btn-primary btn-sm">Collect payment</button>
+                </div>
+              `;
+              $(".order-sumary").append(newOrderSumary);
+              let newCustomerInfor= `
+                <div class="mb-3 border-bottom text-center">
+                    <h5 class="h3 mb-4">Customer Infor</h5>
+                </div>
+                <div class="mb-3">
+                    <h5 class="h6">Full Name</h5>
+                    <p class="text-muted mb-0">${data.userName}</p>
+                </div>
+                <div class="mb-3">
+                    <h5 class="h6">Contact Information</h5>
+                    <p class="text-muted mb-0">${data.userEmail}</p>
+                    <p class="text-muted">${data.userPhone?data.userPhone:"No phone"}</p>
+                </div>
+                <div class="mb-3">
+                    <h5 class="h6">Shipping Address</h5>
+                    <p class="text-muted mb-0">${data.userEmail}</p>
+                    <p class="text-muted mb-0">1226 University Drive</p>
+                    <p class="text-muted mb-0">Menlo Park CA 94025</p>
+                    <p class="text-muted">United States</p>
+                </div>
+              `;
+              $(".customer-infor").append(newCustomerInfor);
+            },
+            error: function(error){
+              console.error("Have error: ",error);
+            }
+          })
+        }
     </script>
     
 </body>

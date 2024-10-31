@@ -4,6 +4,8 @@
  */
 package com.example.ecommerce.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.ecommerce.model.OrderProduct;
@@ -14,4 +16,5 @@ import com.example.ecommerce.model.key.OrderProductKey;
  * @author infoh
  */
 public interface OrderProductRepository extends JpaRepository<OrderProduct, OrderProductKey>{
+    List<OrderProduct> findByOrderId(Long orderId);
 }

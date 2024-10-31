@@ -21,4 +21,5 @@ public class AdminController {
     public String orderManage() {
         return "order";
     }
+
 }
