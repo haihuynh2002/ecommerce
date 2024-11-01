@@ -53,7 +53,7 @@ public class Order {
     @Transient
     public Date getShippingDate() {
         Calendar c = Calendar.getInstance();
-        c.setTime(new Date());
+        c.setTime(createdAt);
         c.add(Calendar.DATE, 5);
         return c.getTime();
     }

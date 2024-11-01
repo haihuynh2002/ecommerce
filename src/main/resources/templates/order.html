@@ -49,14 +49,14 @@
         </div>
         <!-- Page Heading -->
         <div class="my-5 p-4 rounded-3 shadow bg-white">
-          <div class="py-3">
+          <div class="pb-3 border-bottom">
             <div class="d-flex justify-content-between align-items-center">
               <h4 class="m-0 font-weight-bold text-primary col-6">Order Detail</h4>
             </div>
           </div>
           <!-- Order Header -->
-          <div class="d-flex justify-content-between align-items-center order-header mb-2">
-              <h5 class="mb-0">Order ID: <span id="orderDetailID"></span></h5>
+          <div class="d-flex justify-content-between align-items-center order-header mb-1">
+              <h5 class="mt-2">Order ID: <span id="orderDetailID"></span></h5>
           </div>
           <p class="text-muted" id="timeCreate">None</p>
   
@@ -77,20 +77,20 @@
                     <div class="mt-3">
                         <div class="d-flex justify-content-between">
                             <span>Subtotal</span>
-                            <span>0.00 VND</span>
+                            <span>0 VND</span>
                         </div>
                         <div class="d-flex justify-content-between">
                             <span>Discount</span>
-                            <span>0.00 VND</span>
+                            <span>0 VND</span>
                         </div>
                         <div class="d-flex justify-content-between">
                             <span>Shipping</span>
-                            <span>Free shipping (0.0 lb)</span>
+                            <span>Free shipping (0 lb)</span>
                         </div>
                         <hr>
                         <div class="d-flex justify-content-between total-row">
                             <span>Total</span>
-                            <span>0.00 VND</span>
+                            <span>0 VND</span>
                         </div>
                     </div>
                     <div class="mt-5 d-flex gap-2 justify-content-end">
@@ -152,7 +152,7 @@
               $(".item-list").empty();
               $(".order-sumary").empty();
               $(".customer-infor").empty();
-              let total= 0;
+              let subTotal= 0;
               data.listProduct.forEach(product => {
                 let newProduct= `
                   <div class="pt-4 mb-4 order-item">
@@ -169,23 +169,24 @@
                       </div>
                   </div>
                 `;
-                total= total + product.total;
+                subTotal= subTotal + product.total;
                 $(".item-list").append(newProduct);
               });
+              total= subTotal+data.orderShippingPrice;
               let newOrderSumary= `
                 <span class="badge bg-warning text-dark bg-opacity-75">Payment pending</span>
                 <div class="mt-3">
                     <div class="d-flex justify-content-between">
                         <span>Subtotal</span>
-                        <span>0.00 VND</span>
+                        <span>${subTotal} VND</span>
                     </div>
                     <div class="d-flex justify-content-between">
                         <span>Discount</span>
-                        <span>0.00 VND</span>
+                        <span>0 VND</span>
                     </div>
                     <div class="d-flex justify-content-between">
                         <span>Shipping</span>
-                        <span>Free shipping (0.0 lb)</span>
+                        <span>${data.orderShippingPrice>0?data.orderShippingPrice+" VND":"Free ship"}</span>
                     </div>
                     <hr>
                     <div class="d-flex justify-content-between total-row">
