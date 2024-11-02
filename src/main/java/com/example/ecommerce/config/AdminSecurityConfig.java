@@ -31,7 +31,7 @@ public class AdminSecurityConfig {
 
         http.authorizeHttpRequests(c
                 -> c.requestMatchers("/admin/login").permitAll()
-                        .requestMatchers("/admin/**").authenticated()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll()
         );
 
@@ -40,7 +40,7 @@ public class AdminSecurityConfig {
         http.cors(c -> c.disable());
 
         http.logout(c -> c.logoutUrl("/admin/logout")
-                .logoutSuccessUrl("/")
+                .logoutSuccessUrl("/admin")
         );
 
         return http.build();
