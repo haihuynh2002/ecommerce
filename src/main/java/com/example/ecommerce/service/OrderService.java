@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.ecommerce.dto.OrderDTO;
+import com.example.ecommerce.dto.OrderListDTO;
 import com.example.ecommerce.dto.OrderDetailDTO;
 import com.example.ecommerce.dto.OrderProductDTO;
 import com.example.ecommerce.model.Order;
@@ -50,9 +50,9 @@ public class OrderService {
     @Autowired
     UserRepository ur;
 
-    public List<OrderDTO> findAll() {
+    public List<OrderListDTO> findAll() {
         return or.findAll().stream().map(order -> {
-            OrderDTO dto = new OrderDTO();
+            OrderListDTO dto = new OrderListDTO();
             dto.setId(order.getId());
             dto.setCustomerName(order.getUser().getFullName());
             dto.setPhone(order.getUser().getPhone());

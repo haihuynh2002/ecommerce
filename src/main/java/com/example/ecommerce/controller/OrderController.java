@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.ecommerce.dto.OrderDTO;
+import com.example.ecommerce.dto.OrderListDTO;
 import com.example.ecommerce.dto.OrderDetailDTO;
 import com.example.ecommerce.service.OrderService;
 import com.example.ecommerce.service.UserService;
@@ -31,7 +31,7 @@ public class OrderController {
     UserService us;
 
     @GetMapping
-    public List<OrderDTO> getAll() {
+    public List<OrderListDTO> getAll() {
         return os.findAll();
     }
 

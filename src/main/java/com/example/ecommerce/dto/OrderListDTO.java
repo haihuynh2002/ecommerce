@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import lombok.Data;
 
 @Data
-public class OrderDTO {
+public class OrderListDTO {
     private Long id;
     private String customerName;
     private String phone;
