@@ -8,13 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.ecommerce.dto.OrderDto;
+import com.example.ecommerce.model.Cart;
+import com.example.ecommerce.model.CartItem;
+import com.example.ecommerce.model.Order;
+import com.example.ecommerce.model.OrderProduct;
+import com.example.ecommerce.model.Payment;
+import com.example.ecommerce.model.User;
+
 import com.example.ecommerce.dto.OrderListDTO;
 import com.example.ecommerce.dto.OrderDetailDTO;
 import com.example.ecommerce.dto.OrderProductDTO;
-import com.example.ecommerce.model.Order;
 import com.example.ecommerce.model.Product;
-import com.example.ecommerce.model.OrderProduct;
-import com.example.ecommerce.model.User;
 import com.example.ecommerce.repository.OrderProductRepository;
 import com.example.ecommerce.repository.OrderRepository;
 import com.example.ecommerce.repository.PaymentRepository;
@@ -31,24 +36,48 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class OrderService {
-    
+
+    @Autowired
+    Cart cart;
+
     @Autowired
     UserService us;
-    
+
     @Autowired
     ProductService pr;
-    
+
     @Autowired
     OrderProductRepository opr;
-    
+
     @Autowired
     OrderRepository or;
-    
+    @Autowired
+    PaymentService ps;
     @Autowired
     PaymentRepository pmr;
-    
+
     @Autowired
     UserRepository ur;
+
+    public Order create(OrderDto orderDto, User user) {
+        Payment payment = ps.findById(orderDto.getPaymentId());
+        Order order = new Order();
+        order.setUser(user);
+        order.setPayment(payment);
+        or.save(order);
+
+        for (CartItem item : cart.getItems()) {
+            OrderProduct orderProduct = new OrderProduct();
+            orderProduct.setOrder(order);
+            orderProduct.setProduct(item.getProduct());
+            orderProduct.setPrice(item.getProduct().getPrice());
+            orderProduct.setQuantity(item.getQuantity());
+            opr.save(orderProduct);
+        }
+
+        cart.getItems().clear();
+        return order;
+    }
 
     public List<OrderListDTO> findAll() {
         return or.findAll().stream().map(order -> {

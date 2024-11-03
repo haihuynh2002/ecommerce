@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.ecommerce.dto.PasswordDto;
 import com.example.ecommerce.model.User;
 import com.example.ecommerce.service.UserService;
 
@@ -30,5 +31,16 @@ public class ProfileController {
     public ResponseEntity<User> update(@RequestBody User user) {
         User updatedUser =  userService.update(user);
         return ResponseEntity.ok(updatedUser);
+    }
+
+    @PutMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestBody PasswordDto passwordDto, Authentication auth) {
+        try {
+            User user = userService.findByAuthentication(auth);
+            userService.changePassword(user, passwordDto);
+            return ResponseEntity.ok().build();
+        } catch(Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

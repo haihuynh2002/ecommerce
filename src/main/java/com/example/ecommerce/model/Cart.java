@@ -10,7 +10,7 @@ import org.springframework.web.context.annotation.SessionScope;
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
 @Data
-@Component
+@Component(value = "cart")
 @SessionScope
 public class Cart {
 	private List<CartItem> items;
