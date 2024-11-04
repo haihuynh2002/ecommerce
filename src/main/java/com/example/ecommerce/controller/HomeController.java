@@ -29,14 +29,9 @@ public class HomeController {
     @Autowired
     OrderService os;
 
-    @GetMapping("/")
+    @GetMapping
     public String index() {
-        return "index.html";
-    }
-
-    @GetMapping("/account")
-    public String account() {
-        return "account";
+        return "index";
     }
 
     @GetMapping("/order")
@@ -46,7 +41,7 @@ public class HomeController {
 
     @GetMapping("/cart")
     public String cart() {
-        return "cart.html";
+        return "cart";
     }
 
     @GetMapping("/shop")

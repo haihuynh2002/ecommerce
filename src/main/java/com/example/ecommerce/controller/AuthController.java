@@ -37,14 +37,14 @@ public class AuthController {
     @GetMapping("/register")
     public String register(Model model) {
         User user = new User();
-        model.addAttribute("user", user);
+        user.setUsername("me@gmail.com");
+        model.addAttribute("register", user);
         return "register";
     }
 
     @PostMapping("/register")
-    public String postRegister(@ModelAttribute("user") User user,
+    public String postRegister(@ModelAttribute("register") User user,
             BindingResult result) {
-
         if (result.hasErrors()) {
             return "register";
         }
