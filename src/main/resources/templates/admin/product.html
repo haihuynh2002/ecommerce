@@ -65,7 +65,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form id="productForm">
+        <form id="productForm" enctype>
           <div class="modal-body">
             <input type="hidden" id="productId" />
             <div class="form-group">
@@ -86,8 +86,8 @@
               <textarea id="description" class="form-control"></textarea>
             </div>
             <div class="form-group">
-              <label for="imgUrl">Image URL</label>
-              <input type="text" id="imgUrl" class="form-control" />
+              <label for="Image">Image</label>
+              <input type="file" id="image" class="form-control" />
             </div>
             <div class="btn-group mt-2" id="isInStock" role="group" aria-label="Basic checkbox toggle button group">
               <input type="checkbox" class="btn-check" id="isInStockCB" checked>
@@ -95,7 +95,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary close" data-dismiss="modal" onclick="resetModal()">Close</button>
+            <button type="button" class="btn btn-secondary close" data-dismiss="modal"
+              onclick="resetModal()">Close</button>
             <button type="submit" class="btn btn-primary">Save Product</button>
           </div>
         </form>
@@ -157,18 +158,24 @@
         let method = productId ? "PUT" : "POST";
         let url = productId ? `/api/product/${productId}` : "/api/product";
         let isInStock = $("#isInStockCB").is(":checked");
+
+        let formData = new FormData(document.getElementById("productForm"));
+        formData.append("product", new Blob([JSON.stringify({
+          name: $("#name").val(),
+          brandName: $("#brandName").val(),
+          isInStock: isInStock,
+          price: $("#price").val(),
+          description: $("#description").val()
+        })],{ type: "application/json" }));
+        formData.append("image", $("#image").prop('files'));
+
         $.ajax({
           url: url,
           method: method,
-          contentType: "application/json",
-          data: JSON.stringify({
-            name: $("#name").val(),
-            brandName: $("#brandName").val(),
-            isInStock: isInStock,
-            price: $("#price").val(),
-            description: $("#description").val(),
-            imgUrl: $("#imgUrl").val()
-          }),
+          enctype: 'multipart/form-data',
+          processData: false,
+          contentType: false, 
+          data: formData,
           success: function () {
             resetModal();
             $("#productModal").modal("hide");
@@ -209,7 +216,7 @@
       }
     }
     //Reset Data Modal
-    function resetModal(){
+    function resetModal() {
       $("#productId").val('');
       $("#name").val('');
       $("#brandName").val('');
@@ -217,9 +224,10 @@
       $("#description").val('');
       $("#imgUrl").val('');
       $("#isInStockCB").prop("checked", true);
+      $("image").val("");
     }
-    function validation(){
-      
+    function validation() {
+
     }
   </script>
 </body>

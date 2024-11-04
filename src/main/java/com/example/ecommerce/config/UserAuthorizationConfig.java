@@ -34,10 +34,10 @@ public class UserAuthorizationConfig {
         http.sessionManagement( sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
         
         http.authorizeHttpRequests(c -> 
-            //    c.requestMatchers("/auth/**").permitAll()
-            //    .requestMatchers("/profile").hasRole("USER")
-            //    .requestMatchers("/checkout").hasRole("USER")
-               c.anyRequest().permitAll()
+               c.requestMatchers("/auth/**").permitAll()
+               .requestMatchers("/profile").hasRole("USER")
+               .requestMatchers("/checkout").hasRole("USER")
+               .anyRequest().permitAll()
         );
         
         http.logout(c -> c.logoutUrl("/auth/logout")

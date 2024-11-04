@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,8 @@ import com.example.ecommerce.model.User;
 import com.example.ecommerce.service.OrderService;
 import com.example.ecommerce.service.PaymentService;
 import com.example.ecommerce.service.UserService;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class HomeController {
@@ -60,8 +63,15 @@ public class HomeController {
     }
 
     @PostMapping("/checkout")
-    public String order(@ModelAttribute("order") OrderDto orderDto, Authentication auth) {
+    public String order(@ModelAttribute("order") @Valid OrderDto orderDto, BindingResult result,
+    Authentication auth, Model model) {
         User user = us.findByAuthentication(auth);
+        if(result.hasErrors()) {
+            List<Payment> payments = ps.findByUserId(user.getId());
+            model.addAttribute("order", orderDto);
+            model.addAttribute("payments", payments);
+            return "checkout";
+        }
         os.create(orderDto, user);
         return "index";
     }

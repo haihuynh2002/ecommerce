@@ -38,8 +38,11 @@
                                                             </label>
                                                         </div>
                                                     </div>
-
                                                 </div>
+                                            </div>
+                                            <div class="row">
+                                                <p th:if="${#fields.hasErrors('paymentId')}" th:errors="*{paymentId}"
+                                                    class="text-danger"></p>
                                             </div>
 
                                             <label class="py-3"><strong>Additional Notes</strong></label>

@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.ecommerce.model.Product;
 import com.example.ecommerce.service.ProductService;
@@ -47,8 +49,8 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> create(@RequestBody Product product) {
-        ps.create(product);
+    public ResponseEntity<Product> create(@RequestPart("image") MultipartFile image, @RequestPart Product product) {
+        ps.create(product, image);
         return ResponseEntity.ok(product);
     }
 
