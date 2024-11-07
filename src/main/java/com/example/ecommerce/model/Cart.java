@@ -9,6 +9,7 @@ import org.springframework.web.context.annotation.SessionScope;
 
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
+
 @Data
 @Component(value = "cart")
 @SessionScope
@@ -45,10 +46,6 @@ public class Cart {
 	}
 
 	public BigDecimal getTotal() {
-		return items.stream().reduce(BigDecimal.ZERO, (subtotal, item) -> subtotal.add(item.getSubTotal()), BigDecimal::add);
-	}
-
-	public BigDecimal getSubTotal() {
 		return items.stream().reduce(BigDecimal.ZERO, (subtotal, item) -> subtotal.add(item.getSubTotal()), BigDecimal::add);
 	}
 }

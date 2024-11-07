@@ -160,14 +160,16 @@
         let isInStock = $("#isInStockCB").is(":checked");
 
         let formData = new FormData(document.getElementById("productForm"));
-        formData.append("product", new Blob([JSON.stringify({
+        let data = {
           name: $("#name").val(),
           brandName: $("#brandName").val(),
           isInStock: isInStock,
           price: $("#price").val(),
           description: $("#description").val()
-        })],{ type: "application/json" }));
-        formData.append("image", $("#image").prop('files'));
+        };
+
+        formData.append("product", new Blob([JSON.stringify(data)],{ type: "application/json" }));
+        formData.append("image", $("#image").prop('files')[0]);
 
         $.ajax({
           url: url,
@@ -193,7 +195,6 @@
         $("#brandName").val(data.brandName);
         $("#price").val(data.price);
         $("#description").val(data.description);
-        $("#imgUrl").val(data.imgUrl);
         if (data.isInStock) {
           $("#isInStockCB").prop("checked", true);
         } else {
@@ -224,7 +225,7 @@
       $("#description").val('');
       $("#imgUrl").val('');
       $("#isInStockCB").prop("checked", true);
-      $("image").val("");
+      $("#image").val("");
     }
     function validation() {
 

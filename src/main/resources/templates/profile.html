@@ -127,7 +127,7 @@
                         </div>
                         <div class="tab-pane fade" id="nav-payment" role="tabpanel" aria-labelledby="nav-payment-tab">
                             <div class="container p-5" id="payment-content">
-                                
+
                             </div>
                             <div>
                                 <button class="btn btn-primary" id="addPayment">Add Payment</button>
@@ -147,7 +147,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="userForm">
                         <input type="hidden" id="inputUserId">
                         <div class="mb-3">
                             <label for="inputFirstName" class="col-form-label">First name:</label>
@@ -168,6 +168,11 @@
                         <div class="mb-3">
                             <label for="inputPhone" class="col-form-label">Phone:</label>
                             <input type="text" class="form-control" id="inputPhone">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="image" class="col-form-label">Image:</label>
+                            <input type="file" class="form-control" id="image">
                         </div>
                     </form>
                 </div>
@@ -342,6 +347,8 @@
             });
 
             $("#saveProfile").click(function () {
+
+                let formData = new FormData(document.getElementById("userForm"));
                 let user = {
                     id: $('#inputUserId').val(),
                     firstName: $('#inputFirstName').val(),
@@ -351,11 +358,16 @@
                     phone: $('#inputPhone').val()
                 }
 
+                formData.append("user", new Blob([JSON.stringify(user)], { type: "application/json" }));
+                formData.append("image", $("#image").prop('files')[0]);
+
                 $.ajax({
                     url: '/api/profile',
                     method: 'PUT',
-                    contentType: "application/json",
-                    data: JSON.stringify(user),
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    contentType: false,
+                    data: formData,
                     success: function (user) {
                         $('#profileModal').modal('hide');
                         loadUser(user);
@@ -385,16 +397,16 @@
                 });
 
             });
-            
+
             $("#addPayment").click(function () {
                 clearPaymentModal();
                 $('#paymentModal').modal('show');
             });
 
             $("#savePayment").click(function () {
-                let payment = { 
+                let payment = {
                     id: $('#inputPaymentId').val(),
-                    type: $('#inputType').val(),    
+                    type: $('#inputType').val(),
                     cardName: $('#inputCardName').val(),
                     cardNumber: $('#inputCardNumber').val(),
                     expiryMonth: $('#inputExpiryMonth').val(),
@@ -409,7 +421,7 @@
                     data: JSON.stringify(payment),
                     success: function (payment) {
                         toastr.success('Payment saved', 'Success');
-                        $('#paymentModal').modal('hide');   
+                        $('#paymentModal').modal('hide');
                         loadPayments();
                     }
                 });

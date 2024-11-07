@@ -4,10 +4,6 @@
  */
 package com.example.ecommerce.service;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.security.core.Authentication;
@@ -18,8 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.ecommerce.dto.PasswordDto;
+import com.example.ecommerce.enumeration.Role;
 import com.example.ecommerce.model.User;
 import com.example.ecommerce.repository.UserRepository;
+import com.example.ecommerce.util.ImageUtil;
 
 import lombok.AllArgsConstructor;
 
@@ -31,8 +29,6 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Transactional
 public class UserService {
-
-    private static String uploadDirectory = "src/main/resources/static/image/user/";
     private final PasswordEncoder passwordEncoder;
     private final UserRepository ur;
 
@@ -52,6 +48,7 @@ public class UserService {
         });
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(Role.USER.name());
         return ur.save(user);
     }
 
@@ -65,14 +62,7 @@ public class UserService {
         return ur.findAll();
     }
 
-    public String saveImage(MultipartFile file) throws IOException {
-        String fileName = file.getOriginalFilename();
-        Path fileNameAndPath = Paths.get(uploadDirectory, fileName);
-        Files.write(fileNameAndPath, file.getBytes());
-        return "/image/user/" + fileName;
-    }
-
-    public User update(User newUser) {
+    public User update(User newUser, MultipartFile image) {
         User user = findById(newUser.getId());
         user.setUsername(newUser.getUsername());
         user.setFirstName(newUser.getFirstName());
@@ -81,6 +71,11 @@ public class UserService {
         user.setGender(newUser.getGender());
         user.setEnabled(newUser.isEnabled());
         user.setRole(newUser.getRole());
+        if (image != null) {
+            String imageUrl = ImageUtil.saveImage(image, "src/main/resources/static/images/user/", "/images/user/");
+            user.setImgUrl(imageUrl);
+        }
+
         return ur.save(user);
     }
 
@@ -89,16 +84,11 @@ public class UserService {
     }
 
     public void changePassword(User user, PasswordDto passwordDto) {
-        System.out.println(user.getPassword());
-        System.out.println(passwordEncoder.encode("123"));
-        System.out.println(passwordDto.getOldPassword());
-        System.out.println(passwordEncoder.encode(passwordDto.getOldPassword()));
-        
-        if(!passwordDto.getNewPassword().equals(passwordDto.getConfirmPassword())) {
+        if (!passwordDto.getNewPassword().equals(passwordDto.getConfirmPassword())) {
             throw new RuntimeException("Password does not match");
         }
 
-        if(!passwordEncoder.matches(passwordDto.getOldPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches(passwordDto.getOldPassword(), user.getPassword())) {
             throw new RuntimeException("Old password is not correct");
         }
 

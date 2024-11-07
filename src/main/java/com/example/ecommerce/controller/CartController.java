@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ecommerce.dto.CartDto;
+import com.example.ecommerce.dto.CartUpdationRequest;
 import com.example.ecommerce.model.Cart;
 import com.example.ecommerce.model.CartItem;
-import com.example.ecommerce.model.Product;
 import com.example.ecommerce.service.CartService;
 
 @RestController
@@ -38,9 +38,9 @@ public class CartController {
         cs.addItem(cartDto);
     }
 
-    @PutMapping("/{id}")
-    public void UpdateItem(Product product) {
-        System.out.println("update cart");
+    @PutMapping
+    public void UpdateItem(@RequestBody CartUpdationRequest request) {
+        cs.updateItem(request);
     }
 
     @DeleteMapping("/{id}")

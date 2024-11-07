@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.ecommerce.dto.PasswordDto;
 import com.example.ecommerce.model.User;
@@ -28,8 +30,8 @@ public class ProfileController {
     }
 
     @PutMapping
-    public ResponseEntity<User> update(@RequestBody User user) {
-        User updatedUser =  userService.update(user);
+    public ResponseEntity<User> update(@RequestPart("image") MultipartFile image, @RequestPart User user) {
+        User updatedUser =  userService.update(user, image);
         return ResponseEntity.ok(updatedUser);
     }
 
