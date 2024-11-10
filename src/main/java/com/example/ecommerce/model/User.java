@@ -39,8 +39,8 @@ public class User {
     private Date createdAt;
     @UpdateTimestamp
     private Date updateAt;
-    private String imageUrl;
-    private String role = "USER";
+    private String imgUrl;
+    private String role;
     private String address;
     
     public String getFullName() {

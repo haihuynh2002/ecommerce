@@ -38,7 +38,7 @@ public class UserAPIController {
     }
 
     @PostMapping
-    public ResponseEntity<User> create(@RequestBody User User) {
+    public ResponseEntity<User> create(User User) {
         us.create(User);
         System.out.println("Enabled: " + User.isEnabled());
         return ResponseEntity.ok(User);
@@ -47,7 +47,7 @@ public class UserAPIController {
     @PutMapping("/{id}")
     public ResponseEntity<User> update(@PathVariable("id") Long id, @RequestBody User User) {
         User.setId(id);
-        us.update(User);
+        us.update(User, null);
         return ResponseEntity.ok(User);
     }
 

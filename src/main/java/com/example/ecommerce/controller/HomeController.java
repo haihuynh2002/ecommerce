@@ -75,6 +75,7 @@ public class HomeController {
     @PostMapping("/checkout")
     public String order(@ModelAttribute("order") @Valid OrderDto orderDto, BindingResult result,
     Authentication auth, Model model) {
+        System.out.println("me");
         User user = us.findByAuthentication(auth);
         if(result.hasErrors()) {
             List<Payment> payments = ps.findByUserId(user.getId());
