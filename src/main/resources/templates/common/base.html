@@ -156,41 +156,16 @@
 
     <div class="search-popup">
       <div class="search-popup-container">
-        <form role="search" method="get" class="search-form" action="">
+        <form role="search" method="get" class="search-form" th:action="@{/search}" >
           <input type="search" id="search-form" class="search-field" placeholder="Type and press enter" value=""
-            name="s" />
+            name="keywords" />
           <button type="submit" class="search-submit">
             <svg class="search">
               <use xlink:href="#search"></use>
             </svg>
           </button>
         </form>
-
-        <h5 class="cat-list-title">Browse Categories</h5>
-
-        <ul class="cat-list">
-          <li class="cat-list-item">
-            <a href="#" title="Romance">Romance</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Thriller">Thriller</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Sci-fi">Sci-fi</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Cooking">Cooking</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Health">Health</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Lifestyle">Lifestyle</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Fiction">Fiction</a>
-          </li>
-        </ul>
+        
       </div>
     </div>
   </div>
@@ -354,82 +329,25 @@
     </nav>
   </header>
 
-  <section th:fragment="billboard" id="billboard" class="position-relative d-flex align-items-center py-5 bg-light-gray"
-    style="
-        background-image: url(images/banner-image-bg.jpg);
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        height: 800px;
-      ">
-    <div class="position-absolute end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next main-slider-button-next">
-      <svg class="chevron-forward-circle d-flex justify-content-center align-items-center p-2" width="80" height="80">
-        <use xlink:href="#alt-arrow-right-outline"></use>
-      </svg>
-    </div>
-    <div class="position-absolute start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev main-slider-button-prev">
-      <svg class="chevron-back-circle d-flex justify-content-center align-items-center p-2" width="80" height="80">
-        <use xlink:href="#alt-arrow-left-outline"></use>
-      </svg>
-    </div>
-    <div class="swiper main-swiper">
-      <div class="swiper-wrapper d-flex align-items-center">
-        <div class="swiper-slide">
-          <div class="container">
-            <div class="row d-flex flex-column-reverse flex-md-row align-items-center">
-              <div class="col-md-5 offset-md-1 mt-5 mt-md-0 text-center text-md-start">
-                <div class="banner-content">
-                  <h2>The Fine Print Book Collection</h2>
-                  <p>Best Offer Save 30%. Grab it now!</p>
-                  <a href="index.html" class="btn mt-3">Shop Collection</a>
-                </div>
+  <section th:fragment="billboard" id="billboard" class="position-relative d-flex align-items-center py-5 ">
+    <div style="display: flex; flex-wrap: wrap; margin-left: 100px;">
+      <div th:each="ProductSearch, iterStat : ${listProductsSearch}">
+          <div class="card" style="width: 18rem; height: auto; float: left; margin-left: 20px;">
+              <img th:src="${ProductSearch.imgUrl}" class="card-img-top" alt="...">
+              <div class="card-body">
+                  <h5 class="card-title">
+                      <a th:href="@{/detail/{id}(id = ${ProductSearch.id})}" th:text="${ProductSearch.name}"></a>
+                  </h5>
+                  <p class="card-text" th:text="${ProductSearch.description}"></p>
+                  <a href="#" class="btn btn-primary">Go somewhere</a>
               </div>
-              <div class="col-md-6 text-center">
-                <div class="image-holder">
-                  <img src="/images/banner-image2.png" class="img-fluid" alt="banner" />
-                </div>
-              </div>
-            </div>
           </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="container">
-            <div class="row d-flex flex-column-reverse flex-md-row align-items-center">
-              <div class="col-md-5 offset-md-1 mt-5 mt-md-0 text-center text-md-start">
-                <div class="banner-content">
-                  <h2>How Innovation works</h2>
-                  <p>Discount available. Grab it now!</p>
-                  <a href="index.html" class="btn mt-3">Shop Product</a>
-                </div>
-              </div>
-              <div class="col-md-6 text-center">
-                <div class="image-holder">
-                  <img src="/images/banner-image1.png" class="img-fluid" alt="banner" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="container">
-            <div class="row d-flex flex-column-reverse flex-md-row align-items-center">
-              <div class="col-md-5 offset-md-1 mt-5 mt-md-0 text-center text-md-start">
-                <div class="banner-content">
-                  <h2>Your Heart is the Sea</h2>
-                  <p>Limited stocks available. Grab it now!</p>
-                  <a href="index.html" class="btn mt-3">Shop Collection</a>
-                </div>
-              </div>
-              <div class="col-md-6 text-center">
-                <div class="image-holder">
-                  <img src="/images/banner-image.png" class="img-fluid" alt="banner" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+  
+       
+          <div th:if="${iterStat.index % 5 == 4}" style="flex-basis: 100%; height: 0;"></div>
       </div>
-    </div>
+  </div>
+  
   </section>
 
   <footer th:fragment="footer" id="footer" class="padding-large">

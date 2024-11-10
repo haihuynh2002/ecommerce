@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{common/base :: head}"></head>
+    <body>
+        <div th:replace="~{common/base :: loader}"></div>
+        <header th:replace="~{common/base :: header}"></header>
+
+        <section class="single-product padding-large">
+            <div class="container">
+              <div class="row" >
+                <div class="col-lg-6">
+                  <div class="d-flex gap-3 product-preview">
+                    <div class="swiper thumb-swiper w-50 swiper-initialized swiper-horizontal swiper-backface-hidden swiper-thumbs">
+                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+                    <div class="swiper large-swiper border rounded-3 overflow-hidden swiper-fade swiper-initialized swiper-horizontal swiper-watch-progress swiper-backface-hidden">
+                      <div class="swiper-wrapper" id="swiper-wrapper-ef33bfc2e5930c8b" aria-live="polite" style="transition-duration: 0ms; transition-delay: 0ms;">
+                        <div class="swiper-slide bg-white swiper-slide-active swiper-slide-visible swiper-slide-fully-visible" role="group" aria-label="1 / 3" style="width: 562px; transition-duration: 0ms; opacity: 1; transform: translate3d(0px, 0px, 0px);">
+                          <img th:src="${product.imgUrl}" alt="single-product" class="img-fluid">
+                        </div>
+                        <div class="swiper-slide bg-white swiper-slide-next" role="group" aria-label="2 / 3" style="width: 562px; transition-duration: 0ms; opacity: 0; transform: translate3d(-562px, 0px, 0px);">
+                          <img src="images/product-large-2.png" alt="single-product" class="img-fluid">
+                        </div>
+                        <div class="swiper-slide bg-white" role="group" aria-label="3 / 3" style="width: 562px; transition-duration: 0ms; opacity: 0; transform: translate3d(-1124px, 0px, 0px);">
+                          <img src="images/product-large-3.png" alt="single-product" class="img-fluid">
+                        </div>
+                      </div>
+                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="product-info ps-lg-5 pt-3 pt-lg-0">
+                    <div class="element-header">
+                      <h1 class="product-title" th:text ="${product.name}"></h1>
+                      <div class="product-price d-flex align-items-center mt-2">
+                        <span class="fs-2 fw-light text-primary me-2">$[[${product.price}]]</span>
+   
+                      </div>
+                      <div class="rating text-warning d-flex align-items-center mb-2">
+                        <span th:text="${product.rating}" class="mt-1 mx-1"></span>
+                        
+                        <svg class="star star-fill">
+                            <use xlink:href="#star-fill"></use>
+                        </svg>
+                      </div>
+                    </div>
+                    <p>Justo, cum feugiat imperdiet nulla molestie ac vulputate scelerisque amet. Bibendum adipiscing platea blandit sit sed quam semper rhoncus.</p>
+                    <hr>
+                    <div class="cart-wrap">
+                      <div class="color-options product-select my-3">
+                        <div class="color-toggle" data-option-index="0">
+                          <h4 class="item-title text-decoration-underline text-capitalize">Color</h4>
+                          <ul class="select-list list-unstyled d-flex mb-0">
+                            <li class="select-item me-3" data-val="Green" title="Green">
+                              <a href="#">Gray</a>
+                            </li>
+                            <li class="select-item me-3" data-val="Orange" title="Orange">
+                              <a href="#">Blue</a>
+                            </li>
+                            <li class="select-item me-3" data-val="Red" title="Red">
+                              <a href="#">White</a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="swatch product-select" data-option-index="1">
+                        <h4 class="item-title text-decoration-underline text-capitalize">Size</h4>
+                        <ul class="select-list list-unstyled d-flex mb-0">
+                          <li data-value="S" class="select-item me-3">
+                            <a href="#">S</a>
+                          </li>
+                          <li data-value="M" class="select-item me-3">
+                            <a href="#">M</a>
+                          </li>
+                          <li data-value="L" class="select-item me-3">
+                            <a href="#">L</a>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="product-quantity my-3">
+                        <div class="item-title">
+                          <l><span th:text = "${product.isInStock}"></span> is in stock</l>
+                        </div>
+                        <div class="stock-button-wrap mt-2 d-flex flex-wrap align-items-center">
+                          <div class="product-quantity">
+                            <div class="input-group product-qty align-items-center" style="max-width: 150px;">
+                              <span class="input-group-btn">
+                                <button type="button" class="bg-white shadow border rounded-3 fw-light quantity-left-minus" data-type="minus" data-field="">
+                                  <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
+                                </button>
+                              </span>
+                              <input type="text" id="quantity" name="quantity" class="form-control bg-white shadow border rounded-3 py-2 mx-2 input-number text-center" value="1" min="1" max="100" required="">
+                              <span class="input-group-btn">
+                                <button type="button" class="bg-white shadow border rounded-3 fw-light quantity-right-plus" data-type="plus" data-field="">
+                                  <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
+                                </button>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="action-buttons my-3 d-flex flex-wrap gap-3">
+                        <a href="#" class="btn">Order now</a>
+                        <a href="#" class="btn btn-dark">Add to cart</a>
+                        <a href="#" class="btn btn-dark">
+                          <svg class="heart" width="21" height="21">
+                            <use xlink:href="#heart"></use>
+                          </svg>
+                        </a>
+                      </div>
+                    </div>
+      <hr>
+                    <div class="meta-product my-3">
+                      <div class="meta-item d-flex mb-1">
+                        <span class="fw-medium me-2">SKU:</span>
+                        <ul class="select-list list-unstyled d-flex mb-0">
+                          <li data-value="S" class="select-item" > [[${product.code}]]</li>
+                        </ul>
+                      </div>
+                      <div class="meta-item d-flex mb-1">
+                        <span class="fw-medium me-2">Category: </span>
+                        <ul class="select-list list-unstyled d-flex mb-0">
+                            <li data-value="S" class="select-item" > <a href="">[[${product.category}]]</a></li>
+                          </ul>
+                      </div>
+                      <div class="meta-item d-flex mb-1">
+                        <span class="fw-medium me-2">Brand:</span>
+                        <ul class="select-list list-unstyled d-flex mb-0">
+                          <li data-value="S" class="select-item">
+                            <a href="#" th:text = "${product.brandName}"></a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        <footer th:replace="~{common/base :: footer}"></footer>
+    </body>
+
+</html>
