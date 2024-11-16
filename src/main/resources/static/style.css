@@ -1158,6 +1158,17 @@ th{
 #header-nav .offcanvas-end {
   width: 500px;
 }
+#header-nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 50; /* Đảm bảo nav nằm trên các phần tử khác */
+  background-color: #fff; /* Đặt nền màu trắng cho nav */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Thêm bóng cho nav */
+  padding: 10px ; /* Tùy chỉnh khoảng cách cho nav */
+}
+
+
 
 /*------------ Top User Icons -----------*/
 .site-header .user-items svg {
@@ -1228,6 +1239,20 @@ th{
   bottom: 160px;
   opacity: 1;
 }
+
+#img-newin1:hover{
+
+content: url('images/new-in11.png');
+transition: all 0.3s ease-in-out;
+}
+#img-newin2:hover{
+  content: url('images/new-in22.png');
+  transition: all 0.5s ease-in-out;
+  }
+  #img-newin3:hover{
+    content: url('images/new-in33.png');
+    transition: all 0.5s ease-in-out;
+    }
 
 /* 4.5 Items Listings
 /*----------------------------------------------*/
@@ -1351,4 +1376,18 @@ select#input-sort {
   .product-tabs .review-item .image-holder{
     margin-bottom: 10px;
   }
+}
+
+.logo{
+  width: 200px;
+  height: 80px;
+}
+
+.logo-mini{
+  width: 100px;
+  height: 50px;
+}
+.img-collection {
+width: 460px;
+height:600px;
 }
