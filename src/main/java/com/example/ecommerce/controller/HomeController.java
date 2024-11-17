@@ -46,7 +46,7 @@ public class HomeController {
     public String index() {
         return "index";
     }
-
+    
     @GetMapping("/order")
     public String order() {
         return "order";
@@ -103,8 +103,6 @@ public class HomeController {
 
     @GetMapping("/search")
     public String searchProduct(@RequestParam("keywords") String keywords , Model model) {
-    //    List<Product> listProductsSearch =  pdservice.searchProducts(keywords);
-    //     model.addAttribute("listProductsSearch", listProductsSearch);
         return "redirect:/shop?keywords=" + keywords;
     }
     

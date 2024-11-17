@@ -15,5 +15,5 @@ import com.example.ecommerce.model.Product;
  * @author infoh
  */
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    List<Product> findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCaseOrBrandNameContainingIgnoreCase(String key1 , String key2 , String key3);
+    List<Product> findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCaseOrBrandNameContainingIgnoreCaseOrCategoryContainingIgnoreCase(String key1 , String key2 , String key3 , String key4);
 }

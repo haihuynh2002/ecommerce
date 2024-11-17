@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{common/base :: head}"></head>
+<head th:replace="~{common/base :: head}">
+
+   
+</head>
 
 <body>
     <div th:replace="~{common/base :: loader}">
@@ -10,6 +13,57 @@
     <header th:replace="~{common/base :: header}">
        
     </header>
+    <style>
+        .review-content {
+    display: flex;
+    flex-direction: column; /* Chuyển thành bố cục dọc */
+    flex-wrap: wrap;
+    gap: 5px; /* Tạo khoảng cách giữa các phần tử */
+    align-items: flex-start; /* Căn trái các phần tử */
+    max-width: 100%; /* Đảm bảo không vượt quá chiều rộng cha */
+}
+
+.brand-name {
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    display: block;
+    max-width: 100%; /* Cho phép co giãn toàn bộ chiều rộng */
+    flex: 1 1 auto;
+}
+     
+.rating {
+    margin-top: 2px; /* Khoảng cách từ tên thương hiệu đến ngôi sao */
+    margin-bottom: 10px;
+}
+     
+     .card {
+         max-width: 300px; /* Chiều rộng tối đa */
+         overflow: hidden; /* Ngăn nội dung tràn */
+         word-wrap: break-word;
+     }
+     
+     .card img {
+         max-width: 100%; /* Đảm bảo không vượt quá chiều rộng cha */
+         height: auto; /* Giữ tỷ lệ khung hình */
+     }
+     
+     
+     .card img {
+         max-width: 100%; /* Đảm bảo không vượt quá chiều rộng cha */
+         height: auto; /* Giữ tỷ lệ khung hình */
+     }
+     .container {
+         max-width: 1200px; /* Giới hạn chiều rộng */
+         margin: auto; /* Căn giữa */
+     }
+     
+     .row {
+         flex-wrap: wrap;
+     }
+   
+    
+         </style>
     <script>
         document.addEventListener("DOMContentLoaded",   function(){
         let shopElement = document.querySelector('#shopPage');
@@ -18,14 +72,36 @@
         shopElement.classList.add('active');
         });
     </script>
-    <div class="container padding-medium" style="margin-top: 85px;">
+    <div class="container padding-medium" style="margin-top: 40px;">
+        <button class="btn mt-1 mb-4 mx-1" onclick="sendRequest('Shirt')">
+            <h6>Shirt</h6>
+        </button>
+        <button class="btn mt-1 mb-4 mx-1" onclick="sendRequest('Jeans')">
+            <h6>Jeans</h6>
+        </button>
+        <button class="btn mt-1 mb-4 mx-1" onclick="sendRequest('Dresses')">
+            <h6>Dresses</h6>
+        </button>
+        <button class="btn  mt-1 mb-4 mx-1" onclick="sendRequest('Shorts')">
+            <h6>Shorts</h6>
+        </button>
+        <button class="btn  mt-1 mb-4 mx-1" onclick="sendRequest('Jackets')">
+            <h6>Jackets</h6>
+        </button>
+        <script>
+            function sendRequest(keywords) {
+
+        const url = `/search?keywords=${encodeURIComponent(keywords)}`;
+        window.location.href = url;
+            }
+            
+        </script>
         <div class="row flex-row-reverse g-md-5">
             <main class="col-md-12">
                 <div class="row product-content product-store" id="product-content">
-
-                   
+                    
                 </div>
-               
+                
             </main>
         </div>
     </div>
@@ -73,29 +149,19 @@
             return `
                     <div class="col-lg-3 col-md-4 mb-4">
                             <div class="card position-relative p-4 border rounded-3">
-                                <img src="${product.imgUrl}" class="img-fluid shadow-sm" alt="product item">
+                                <img src="${product.imgUrl}" class="img-fluid shadow-sm" alt="product item" style="height: 220px; width: 300px;">
                                 <h6 class="mt-4 mb-0 fw-bold"><a href="/detail/${product.id}">${product.name}</a></h6>
-                                <div class="review-content d-flex">
-                                    <p class="my-2 me-2 fs-6 text-black-50">${product.brandName}</p>
-
-                                    <div class="rating text-warning d-flex align-items-center">
-                                        <svg class="star star-fill">
-                                            <use xlink:href="#star-fill"></use>
-                                        </svg>
-                                        <svg class="star star-fill">
-                                            <use xlink:href="#star-fill"></use>
-                                        </svg>
-                                        <svg class="star star-fill">
-                                            <use xlink:href="#star-fill"></use>
-                                        </svg>
-                                        <svg class="star star-fill">
-                                            <use xlink:href="#star-fill"></use>
-                                        </svg>
-                                        <svg class="star star-fill">
-                                            <use xlink:href="#star-fill"></use>
-                                        </svg>  
-                                    </div>
+                                <div class="review-content">
+                                <p class="my-2 me-2 fs-6 text-black-50 brand-name">${product.brandName}</p>
+                                <div class="rating text-warning d-flex align-items-center">
+                                    <svg class="star star-fill"><use xlink:href="#star-fill"></use></svg>
+                                    <svg class="star star-fill"><use xlink:href="#star-fill"></use></svg>
+                                    <svg class="star star-fill"><use xlink:href="#star-fill"></use></svg>
+                                    <svg class="star star-fill"><use xlink:href="#star-fill"></use></svg>
+                                    <svg class="star star-fill"><use xlink:href="#star-fill"></use></svg>
                                 </div>
+                            </div>
+
 
                                 <span class="price text-primary fw-bold mb-2 fs-5">$${product.price}</span>
                                 <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
