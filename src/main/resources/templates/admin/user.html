@@ -27,7 +27,7 @@
                   <th>Birthday</th>
                   <th>Gender</th>
                   <th>Phone</th>
-                  <th>Enable</th>
+                  <th>Address</th>
                   <th>Role</th>
                   <th>Image</th>
                   <th>Edit</th>
@@ -43,7 +43,7 @@
                   <th>Birthday</th>
                   <th>Gender</th>
                   <th>Phone</th>
-                  <th>Enable</th>
+                  <th>Address</th>
                   <th>Role</th>
                   <th>Image</th>
                   <th>Edit</th>
@@ -103,15 +103,19 @@
               <input type="text" id="phone" class="form-control" />
             </div>
             <div class="form-group">
+              <label for="address">Address</label>
+              <input type="text" id="address" class="form-control" />
+            </div>
+            <div class="form-group">
               <label for="role">Role</label>
               <select class="form-select" id="role" aria-label="Default select example">
                 <option value="USER" selected>USER</option>
                 <option value="ADMIN">ADMIN</option>
               </select>
             </div>
-            <div class="btn-group mt-2" id="enable" role="group" aria-label="Basic checkbox toggle button group">
-              <input type="checkbox" class="btn-check" id="enableCB" checked>
-              <label class="btn btn-outline-secondary" for="enableCB">Enable</label>
+            <div class="form-group" id="img-group">
+              <label for="imgUrl">File</label>
+              <input type="File" id="imgUrl" class="form-control" />
             </div>
           </div>
           <div class="modal-footer">
@@ -146,7 +150,8 @@
       $("#birthday").val('');
       $("#gender").val('');
       $("#phone").val('');
-      $("#enableCB").prop("checked", true); 
+      $("#address").val('');
+      $("#img-group").show();
     }
     $(document).ready(function () {
       // Close modal
@@ -156,54 +161,102 @@
       });
       // Initialize DataTable
       let table = $("#UsersTable").DataTable({
-        ajax: {
-          url: "/api/user",
-          dataSrc: "",
+      ajax: {
+        url: "/api/user",
+        dataSrc: "",
+      },
+      columns: [
+        { 
+          data: "id", 
+          render: function (data) {
+            return data || "-";
+          } 
         },
-        columns: [
-          { data: "id" },
-          { data: "firstName" },
-          { data: "lastName" },
-          { data: "username",
-            render: function(data){
-              return `<span style="display: inline-block; max-width: 150px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${data}</span>`;
-            }
-           },
-          {
-            data: "birthday",
-            render: function (data) {
-              return formatDate(data);
-            }
-          },
-          { data: "gender" },
-          { data: "phone" },
-          {
-            data: "enabled",
-            render: function (data) {
-              return data ? `<span class="badge rounded-pill bg-success">Enable</span>` : `<span class="badge rounded-pill bg-secondary">Disable</span>`;
-            }
-          },
-          { data: "role" },
-          {
-            data: "imgUrl",
-            render: function (data) {
-              return `<img src="${data}" alt="Not found" class="h-25 w-50 rounded" />`;
-            }
-          },
-          {
-            data: "id",
-            render: function (data) {
-              return `<button onclick="editUser(${data})" class="btn btn-primary">Edit</button>`;
-            }
-          },
-          {
-            data: "id",
-            render: function (data) {
-              return `<button onclick="deleteUser(${data})" class="btn btn-danger">Delete</button>`;
-            },
+        { 
+          data: "firstName", 
+          render: function (data) {
+            return data || "-";
+          } 
+        },
+        { 
+          data: "lastName", 
+          render: function (data) {
+            return data || "-";
+          } 
+        },
+        { 
+          data: "username",
+          render: function (data) {
+            return data || "-";
           }
-        ],
+        },
+        {
+          data: "birthday",
+          render: function (data) {
+            return data ? formatDate(data) : "-";
+          }
+        },
+        { 
+          data: "gender", 
+          render: function (data) {
+            return data || "-";
+          } 
+        },
+        { 
+          data: "phone", 
+          render: function (data) {
+            return data || "-";
+          } 
+        },
+        { 
+          data: "address", 
+          render: function (data) {
+            return data || "-";
+          } 
+        },
+        { 
+          data: "role", 
+          render: function (data) {
+            return data || "-";
+          } 
+        },
+        {
+          data: "imgUrl",
+          render: function (data) {
+            return data ? `<img src="${data}" alt="Not found" class="h-25 w-50 rounded" />` 
+              :  `<img src="/images/user/default-profile.png" alt="Not found" class="h-25 w-50 rounded" />`; 
+          }
+        },
+        {
+          data: "id",
+          render: function (data) {
+            return data 
+              ? `<button onclick="editUser(${data})" class="btn btn-primary">Edit</button>` 
+              : "-";
+          }
+        },
+        {
+          data: "id",
+          render: function (data) {
+            return data 
+              ? `<button onclick="deleteUser(${data})" class="btn btn-danger">Delete</button>` 
+              : "-";
+          }
+        }
+      ],
+      drawCallback: function(settings) {
+      $(".table td").each(function() {
+          if (this.scrollWidth > this.offsetWidth) {
+              $(this).attr('title', $(this).text().trim());
+              $(this).attr('data-bs-toggle', 'tooltip');
+              $(this).attr('data-bs-placement', 'top');
+          }
       });
+      var tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+      var tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+    }
+      });
+
       // Save or Update User (Create/Update)
       $("#UserForm").on("submit", function (e) {
         e.preventDefault();
@@ -211,21 +264,30 @@
         let method = userId ? "PUT" : "POST";
         let url = userId ? `/api/user/${userId}` : "/api/user";
         let roleIp = $("#role option:selected").text();
+
+        let formData = new FormData(document.getElementById("UserForm"));
+        let data = {
+          firstName: $("#firstName").val(),
+          lastName: $("#lastName").val(),
+          username: $("#username").val(),
+          password: $("#password").val(),
+          birthday: $("#birthday").val(),
+          gender: $("#gender").val(),
+          phone: $("#phone").val(),
+          address: $("#address").val(),
+          role: roleIp
+        };
+
+        formData.append("User", new Blob([JSON.stringify(data)],{ type: "application/json" }));
+        formData.append("image", $("#imgUrl").prop('files')[0]);
+
         $.ajax({
           url: url,
           method: method,
-          contentType: "application/json",
-          data: JSON.stringify({
-            firstName: $("#firstName").val(),
-            lastName: $("#lastName").val(),
-            username: $("#username").val(),
-            password: $("#password").val(),
-            birthday: $("#birthday").val(),
-            gender: $("#gender").val(),
-            phone: $("#phone").val(),
-            role: roleIp,
-            enabled: $("#enableCB").is(":checked"),
-          }),
+          enctype: 'multipart/form-data',
+          processData: false,
+          contentType: false,
+          data: formData,
           success: function () {
             $("#UserModal").modal("hide");
             resetUserForm();
@@ -245,8 +307,9 @@
         $("#birthday").val(formatDate(data.birthday));
         $("#gender").val(data.gender);
         $("#phone").val(data.phone);
+        $("#address").val(data.address);
         $("#role").val(data.role=="USER" ? 0 : 1);
-        $("#enableCB").prop("checked", data.enabled); 
+        $("#img-group").hide();
         $("#UserModal").modal("show");
       });
     }

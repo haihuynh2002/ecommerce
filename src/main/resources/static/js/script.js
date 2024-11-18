@@ -43,7 +43,6 @@
           seconds
         };
       }
-  
       function initializeClock(id, endtime) {
         const clock = document.getElementById(id);
         const daysSpan = clock.querySelector('.days');
@@ -101,7 +100,6 @@
       searchPopup();
       initProductQty();
       countdownTimer();
-
       /* Video */
       var $videoSrc;  
         $('.play-btn').click(function() {

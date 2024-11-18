@@ -42,15 +42,19 @@ public class UserService {
                 () -> new UsernameNotFoundException("Email is not found"));
     }
 
-    public User create(User user) {
+    public User create(User user, MultipartFile image) {
         ur.findByUsername(user.getUsername()).ifPresent(u -> {
             throw new RuntimeException("user exists");
         });
-
+        if (image != null) {
+            String imageUrl = ImageUtil.saveImage(image, "src/main/resources/static/images/user/", "/images/user/");
+            user.setImgUrl(imageUrl);
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Role.USER.name());
         return ur.save(user);
     }
+
 
     public User findUserById(Long id) {
         return ur.findById(id)
@@ -68,6 +72,7 @@ public class UserService {
         user.setFirstName(newUser.getFirstName());
         user.setLastName(newUser.getLastName());
         user.setPhone(newUser.getPhone());
+        user.setAddress(newUser.getAddress());
         user.setGender(newUser.getGender());
         user.setEnabled(newUser.isEnabled());
         user.setRole(newUser.getRole());

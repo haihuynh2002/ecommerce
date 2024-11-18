@@ -93,10 +93,6 @@
                             <span>0 VND</span>
                         </div>
                     </div>
-                    <div class="mt-5 d-flex gap-2 justify-content-end">
-                        <button class="btn btn-outline-secondary btn-sm">Send invoice</button>
-                        <button class="btn btn-primary btn-sm">Collect payment</button>
-                    </div>
                   </div>
               </div>
               <!-- Right Column: Customer Info -->
@@ -136,10 +132,21 @@
             {
               data: "id",
               render: function (data) {
-                return `<a onclick="displayOrderDetail(${data})" class="view-details">Detail</a>`;
+                return `<a onclick="displayOrderDetail(${data})" style="cursor: pointer; color: #0d6efd">View</a>`;
               },
             }
           ],
+          drawCallback: function(settings) {
+            $(".table td").each(function() {
+                if (this.scrollWidth > this.offsetWidth) {
+                    $(this).attr('title', $(this).text().trim());
+                    $(this).attr('data-bs-toggle', 'tooltip');
+                    $(this).attr('data-bs-placement', 'right');
+                }
+            });
+            var tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+            var tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+          }
         });
         });
         function displayOrderDetail(orderId){
@@ -194,10 +201,6 @@
                         <span>${total} VND</span>
                     </div>
                 </div>
-                <div class="mt-5 d-flex gap-2 justify-content-end">
-                    <button class="btn btn-outline-secondary btn-sm">Send invoice</button>
-                    <button class="btn btn-primary btn-sm">Collect payment</button>
-                </div>
               `;
               $(".order-sumary").append(newOrderSumary);
               let newCustomerInfor= `
@@ -215,10 +218,7 @@
                 </div>
                 <div class="mb-3">
                     <h5 class="h6">Shipping Address</h5>
-                    <p class="text-muted mb-0">${data.userEmail}</p>
-                    <p class="text-muted mb-0">1226 University Drive</p>
-                    <p class="text-muted mb-0">Menlo Park CA 94025</p>
-                    <p class="text-muted">United States</p>
+                    <p class="text-muted mb-0">${data.userAddress}</p>
                 </div>
               `;
               $(".customer-infor").append(newCustomerInfor);

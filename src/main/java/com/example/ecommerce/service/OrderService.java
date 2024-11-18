@@ -102,6 +102,7 @@ public class OrderService {
         dto.setUserEmail(user.getUsername());
         dto.setUserName(user.getFullName());
         dto.setUserPhone(user.getPhone());
+        dto.setUserAddress(user.getAddress());
         dto.setOrderID(orderID);
         dto.setCreatedAt(order.getCreatedAt());
         dto.setOrderShippingPrice(order.getShippingPrice());

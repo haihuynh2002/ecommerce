@@ -85,7 +85,7 @@
               <label for="description">Description</label>
               <textarea id="description" class="form-control"></textarea>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="image-group">
               <label for="Image">Image</label>
               <input type="file" id="image" class="form-control" />
             </div>
@@ -119,36 +119,69 @@
           dataSrc: "",
         },
         columns: [
-          { data: "id" },
-          { data: "name" },
-          { data: "brandName" },
+          {
+            data: "id"
+          },
+          {
+            data: "name",
+            render: function (data) {
+              return data ? data : '-';
+            }
+          },
+          {
+            data: "brandName",
+            render: function (data) {
+              return data ? data : '-';
+            }
+          },
           {
             data: "isInStock",
             render: function (data) {
               return data ? `<span class="badge rounded-pill bg-success">In Stock</span>` : `<span class="badge rounded-pill bg-danger">Sold Out</span>`;
             }
           },
-          { data: "description" },
-          { data: "price" },
+          {
+            data: "description",
+            render: function (data) {
+              return data ? data : '-';
+            }
+          },
+          {
+            data: "price",
+            render: function (data) {
+              return data ? data : '-';
+            }
+          },
           {
             data: "imgUrl",
             render: function (data) {
-              return `<img src="${data}" alt="Not found" class="h-50 w-50 rounded" />`;
+              return data ? `<img src="${data}" alt="Not found" class="w-50 rounded" />` : `<img src="/images/book/default-product.png" alt="Not found" class="w-50 rounded" />`;
             }
           },
           {
             data: "id",
             render: function (data) {
               return `<button onclick="editProduct(${data})" class="btn btn-primary">Edit</button>`;
-            },
+            }
           },
           {
             data: "id",
             render: function (data) {
               return `<button onclick="deleteProduct(${data})" class="btn btn-danger">Delete</button>`;
-            },
+            }
           }
         ],
+        drawCallback: function(settings) {
+            $(".table td").each(function() {
+                if (this.scrollWidth > this.offsetWidth) {
+                    $(this).attr('title', $(this).text().trim());
+                    $(this).attr('data-bs-toggle', 'tooltip');
+                    $(this).attr('data-bs-placement', 'right');
+                }
+            });
+            var tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+            var tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+          }
       });
 
       // Save or Update product (Create/Update)
@@ -195,6 +228,7 @@
         $("#brandName").val(data.brandName);
         $("#price").val(data.price);
         $("#description").val(data.description);
+        $("#image-group").hide();
         if (data.isInStock) {
           $("#isInStockCB").prop("checked", true);
         } else {
@@ -223,7 +257,8 @@
       $("#brandName").val('');
       $("#price").val('');
       $("#description").val('');
-      $("#imgUrl").val('');
+      $("#img").val('');
+      $("#image-group").show();
       $("#isInStockCB").prop("checked", true);
       $("#image").val("");
     }
