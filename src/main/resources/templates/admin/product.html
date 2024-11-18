@@ -228,7 +228,7 @@
         $("#brandName").val(data.brandName);
         $("#price").val(data.price);
         $("#description").val(data.description);
-        $("#image-group").hide();
+        if(data.imgUrl) $("#image-group").hide();
         if (data.isInStock) {
           $("#isInStockCB").prop("checked", true);
         } else {
