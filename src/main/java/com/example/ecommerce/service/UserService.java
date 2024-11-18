@@ -42,7 +42,16 @@ public class UserService {
                 () -> new UsernameNotFoundException("Email is not found"));
     }
 
-    public User create(User user, MultipartFile image) {
+    public User create(User user) {
+        ur.findByUsername(user.getUsername()).ifPresent(u -> {
+            throw new RuntimeException("user exists");
+        });
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(Role.USER.name());
+        return ur.save(user);
+    }
+
+    public User adminCreate(User user, MultipartFile image) {
         ur.findByUsername(user.getUsername()).ifPresent(u -> {
             throw new RuntimeException("user exists");
         });

@@ -309,7 +309,7 @@
         $("#phone").val(data.phone);
         $("#address").val(data.address);
         $("#role").val(data.role=="USER" ? 0 : 1);
-        $("#img-group").hide();
+        if(data.imgUrl) $("#img-group").hide();
         $("#UserModal").modal("show");
       });
     }

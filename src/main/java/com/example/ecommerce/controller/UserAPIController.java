@@ -41,7 +41,7 @@ public class UserAPIController {
 
     @PostMapping
     public ResponseEntity<User> create(@RequestPart("image") MultipartFile image, @RequestPart User User) {
-        us.create(User, image);
+        us.adminCreate(User, image);
         return ResponseEntity.ok(User);
     }
 
