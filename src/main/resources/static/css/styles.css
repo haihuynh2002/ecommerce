@@ -11717,3 +11717,31 @@ table td{
   text-overflow: ellipsis; 
   max-width: 150px;
 }
+
+.dash-top{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.dash-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 30px;
+  text-align: left;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+.dash-card h1 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+.dash-card p {
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.6);
+  margin-bottom: 5px;
+}
