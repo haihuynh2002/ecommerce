@@ -11745,3 +11745,7 @@ table td{
   color: rgba(0, 0, 0, 0.6);
   margin-bottom: 5px;
 }
+
+.dataTables_filter{
+  margin-bottom: 10px;
+}
