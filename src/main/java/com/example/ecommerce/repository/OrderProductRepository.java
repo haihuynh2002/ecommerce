@@ -17,4 +17,5 @@ import com.example.ecommerce.model.key.OrderProductKey;
  */
 public interface OrderProductRepository extends JpaRepository<OrderProduct, OrderProductKey>{
     List<OrderProduct> findByOrderId(Long orderId);
+
 }

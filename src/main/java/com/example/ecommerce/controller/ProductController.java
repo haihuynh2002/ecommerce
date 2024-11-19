@@ -48,6 +48,11 @@ public class ProductController {
 
     }
 
+    @GetMapping("/amount")
+    int getAmount() {
+        List<Product> products = ps.findAll();
+        return products.size();
+    }
     @GetMapping("/{id}")
     public ResponseEntity<Product> get(@PathVariable("id") Long id) {
         Product product = ps.findById(id);
