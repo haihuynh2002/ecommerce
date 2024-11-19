@@ -74,46 +74,46 @@
         <form id="UserForm">
           <div class="modal-body">
             <input type="hidden" id="userId" />
-            <div class="form-group">
+            <div class="form-group mt-3">
               <label for="firstName">First name</label>
               <input type="text" id="firstName" class="form-control" />
             </div>
-            <div class="form-group">
+            <div class="form-group mt-3">
               <label for="lastName">Last Name</label>
               <input type="text" id="lastName" class="form-control" />
             </div>
-            <div class="form-group">
+            <div class="form-group mt-3">
               <label for="username">Email</label>
               <input type="email" id="username" class="form-control" />
             </div>
-            <div class="form-group">
+            <div class="form-group mt-3">
               <input type="text" id="password" class="form-control" value="123" hidden />
             </div>
 
-            <div class="form-group">
+            <div class="form-group mt-3">
               <label for="birthday">Birth</label>
               <input type="date" id="birthday" class="form-control" />
             </div>
-            <div class="form-group">
+            <div class="form-group mt-3">
               <label for="gender">Gender</label>
               <input id="gender" class="form-control"></input>
             </div>
-            <div class="form-group">
+            <div class="form-group mt-3">
               <label for="phone">Phone</label>
               <input type="text" id="phone" class="form-control" />
             </div>
-            <div class="form-group">
+            <div class="form-group mt-3">
               <label for="address">Address</label>
               <input type="text" id="address" class="form-control" />
             </div>
-            <div class="form-group">
+            <div class="form-group mt-3">
               <label for="role">Role</label>
               <select class="form-select" id="role" aria-label="Default select example">
                 <option value="USER" selected>USER</option>
                 <option value="ADMIN">ADMIN</option>
               </select>
             </div>
-            <div class="form-group" id="img-group">
+            <div class="form-group mt-3" id="img-group">
               <label for="imgUrl">File</label>
               <input type="File" id="imgUrl" class="form-control" />
             </div>
@@ -151,7 +151,8 @@
       $("#gender").val('');
       $("#phone").val('');
       $("#address").val('');
-      $("#img-group").show();
+      $("#imgUrl").show();
+      $("#old-img").remove();
     }
     $(document).ready(function () {
       // Close modal
@@ -223,8 +224,8 @@
         {
           data: "imgUrl",
           render: function (data) {
-            return data ? `<img src="${data}" alt="Not found" class="h-25 w-50 rounded" />` 
-              :  `<i class="fa-solid fa-user"></i>`; 
+            return data ? `<img src="${data}" alt="Not found" class="h-50 w-50 rounded" />` 
+              :  `<i class="fa-solid fa-user fa-2x"></i>`; 
           }
         },
         {
@@ -277,10 +278,11 @@
           address: $("#address").val(),
           role: roleIp
         };
-
+        if($("#old-img").length > 0) data.imgUrl = $("#old-img").attr("src");
         formData.append("User", new Blob([JSON.stringify(data)],{ type: "application/json" }));
-        formData.append("image", $("#imgUrl").prop('files')[0]);
-
+        let file= $("#imgUrl").prop('files')[0];
+        if(!file) file=null;
+        formData.append("image", file);
         $.ajax({
           url: url,
           method: method,
@@ -308,8 +310,11 @@
         $("#gender").val(data.gender);
         $("#phone").val(data.phone);
         $("#address").val(data.address);
-        $("#role").val(data.role=="USER" ? 0 : 1);
-        if(data.imgUrl) $("#img-group").hide();
+        $("#role").val(data.role);
+        if(data.imgUrl) {
+          $("#imgUrl").hide();
+          $("#img-group").append(`<img src="${data.imgUrl}" alt="Not found" class="w-25 rounded" id="old-img" />`);
+        }
         $("#UserModal").modal("show");
       });
     }

@@ -75,21 +75,12 @@ public class UserService {
         return ur.findAll();
     }
 
-    public User update(User newUser, MultipartFile image) {
-        User user = findById(newUser.getId());
-        user.setUsername(newUser.getUsername());
-        user.setFirstName(newUser.getFirstName());
-        user.setLastName(newUser.getLastName());
-        user.setPhone(newUser.getPhone());
-        user.setAddress(newUser.getAddress());
-        user.setGender(newUser.getGender());
-        user.setEnabled(newUser.isEnabled());
-        user.setRole(newUser.getRole());
+    public User update(User user, MultipartFile image) {
+        // User user = findById(newUser.getId());
         if (image != null) {
             String imageUrl = ImageUtil.saveImage(image, "src/main/resources/static/images/user/", "/images/user/");
             user.setImgUrl(imageUrl);
         }
-
         return ur.save(user);
     }
 

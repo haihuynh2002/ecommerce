@@ -65,33 +65,35 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form id="productForm" enctype>
+        <form id="productForm" enctype="multipart/form-data">
           <div class="modal-body">
             <input type="hidden" id="productId" />
-            <div class="form-group">
+            <div class="form-group mt-3">
               <label for="name">Product Name</label>
               <input type="text" id="name" class="form-control" />
             </div>
-            <div class="form-group">
+            <div class="form-group mt-3">
               <label for="brandName">Brand Name</label>
               <input type="text" id="brandName" class="form-control" />
             </div>
 
-            <div class="form-group">
+            <div class="form-group mt-3">
               <label for="price">Price</label>
               <input type="number" id="price" class="form-control" />
             </div>
-            <div class="form-group">
+            <div class="form-group mt-3">
               <label for="description">Description</label>
               <textarea id="description" class="form-control"></textarea>
             </div>
-            <div class="form-group" id="image-group">
-              <label for="Image">Image</label>
+            <div class="form-group mt-3" id="image-group">
+              <label for="image old-img">Image</label>
               <input type="file" id="image" class="form-control" />
             </div>
-            <div class="btn-group mt-2" id="isInStock" role="group" aria-label="Basic checkbox toggle button group">
-              <input type="checkbox" class="btn-check" id="isInStockCB" checked>
-              <label class="btn btn-outline-success" for="isInStockCB">In Stock</label>
+            <div class="form-check mt-3">
+              <input class="form-check-input" type="checkbox" value="" id="isInStockCB" checked>
+              <label class="form-check-label" for="isInStockCB">
+                In stock
+              </label>
             </div>
           </div>
           <div class="modal-footer">
@@ -155,7 +157,7 @@
           {
             data: "imgUrl",
             render: function (data) {
-              return data ? `<img src="${data}" alt="Not found" class="w-50 rounded" />` : `<img src="/images/book/default-product.png" alt="Not found" class="w-50 rounded" />`;
+              return data ? `<img src="${data}" alt="Not found" class="w-50 rounded"/>` : `<i class="fa-solid fa-shirt fa-2x"></i>`;
             }
           },
           {
@@ -171,17 +173,17 @@
             }
           }
         ],
-        drawCallback: function(settings) {
-            $(".table td").each(function() {
-                if (this.scrollWidth > this.offsetWidth) {
-                    $(this).attr('title', $(this).text().trim());
-                    $(this).attr('data-bs-toggle', 'tooltip');
-                    $(this).attr('data-bs-placement', 'right');
-                }
-            });
-            var tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-            var tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
-          }
+        drawCallback: function (settings) {
+          $(".table td").each(function () {
+            if (this.scrollWidth > this.offsetWidth) {
+              $(this).attr('title', $(this).text().trim());
+              $(this).attr('data-bs-toggle', 'tooltip');
+              $(this).attr('data-bs-placement', 'right');
+            }
+          });
+          var tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+          var tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+        }
       });
 
       // Save or Update product (Create/Update)
@@ -190,26 +192,24 @@
         let productId = $("#productId").val();
         let method = productId ? "PUT" : "POST";
         let url = productId ? `/api/product/${productId}` : "/api/product";
-        let isInStock = $("#isInStockCB").is(":checked");
-
         let formData = new FormData(document.getElementById("productForm"));
         let data = {
           name: $("#name").val(),
           brandName: $("#brandName").val(),
-          isInStock: isInStock,
+          isInStock: $("#isInStockCB").is(":checked"),
           price: $("#price").val(),
           description: $("#description").val()
         };
-
-        formData.append("product", new Blob([JSON.stringify(data)],{ type: "application/json" }));
-        formData.append("image", $("#image").prop('files')[0]);
-
+        if($("#old-img").length > 0) data.imgUrl = $("#old-img").attr("src");
+        formData.append("product", new Blob([JSON.stringify(data)], { type: "application/json" }));
+        let file= $("#image").prop('files')[0];
+        if(!file) file=null;
+        formData.append("image", file);
         $.ajax({
           url: url,
           method: method,
-          enctype: 'multipart/form-data',
           processData: false,
-          contentType: false, 
+          contentType: false,
           data: formData,
           success: function () {
             resetModal();
@@ -228,7 +228,10 @@
         $("#brandName").val(data.brandName);
         $("#price").val(data.price);
         $("#description").val(data.description);
-        if(data.imgUrl) $("#image-group").hide();
+        if (data.imgUrl){
+          $("#image-group").append(`<img src="${data.imgUrl}" alt="Not found" class="w-25 rounded" id="old-img" />`);
+          $("#image").hide();
+        };
         if (data.isInStock) {
           $("#isInStockCB").prop("checked", true);
         } else {
@@ -257,10 +260,9 @@
       $("#brandName").val('');
       $("#price").val('');
       $("#description").val('');
-      $("#img").val('');
-      $("#image-group").show();
+      $("#image").show();
+      $("#old-img").remove();
       $("#isInStockCB").prop("checked", true);
-      $("#image").val("");
     }
     function validation() {
 

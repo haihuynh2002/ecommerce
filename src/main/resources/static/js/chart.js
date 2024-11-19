@@ -1,7 +1,7 @@
 // Add figures
 let instock= $("#instock");
 $.ajax({
-    url: '/api/product/amount',
+    url: '/api/product/instock',
     method: 'GET',
     success: function (data) {
         instock.text(data + " products");
@@ -39,6 +39,7 @@ const ac_config = {
 type: 'line',
 data: ac_data,
 options: {
+    responsive: true,
     interaction: {
         intersect: false,
         mode: 'index'
@@ -52,8 +53,7 @@ options: {
         },
         y: {
             grid: {
-                drawOnChartArea: true,
-                color: 'rgba(0 , 0, 0, 0.1)'
+                drawOnChartArea: false
             },
             ticks: {
                 stepSize: 20,
@@ -134,6 +134,5 @@ options: {
     }
 }
 };
-
-const areaChart = new Chart(ac, ac_config);
-const donutChart = new Chart(dc, dc_config);
+new Chart(ac, ac_config);
+new Chart(dc, dc_config);

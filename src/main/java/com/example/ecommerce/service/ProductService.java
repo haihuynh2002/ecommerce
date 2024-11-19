@@ -50,7 +50,12 @@ public class ProductService {
         return pr.save(product);
     }
 
-    public Product update(Product product) {
+    public Product update(Product product, MultipartFile image) {
+        // Product product = findById(newProduct.getId());
+        if (image != null) {
+            String imageUrl = ImageUtil.saveImage(image, "src/main/resources/static/images/book/", "/images/book/");
+            product.setImgUrl(imageUrl);
+        }
         return pr.save(product);
     }
 

@@ -11729,12 +11729,34 @@ table td{
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 10px 30px;
+  height: 120px;
+  padding: 10px 20px;
   text-align: left;
+  color: white;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin-bottom: 10px;
+}
+.dash-body {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+.dc-theme-1{
+  background-color: rgb(23, 162, 183);
+  color: white;
+  border-left: 20px solid rgb(20, 145, 165);
+}
+.dc-theme-2 {
+  background-color: rgb(39, 168, 68);
+  color: white;
+  border-left: 20px solid rgb(36, 150, 62);
+}
+.dc-theme-3 {
+  background-color: rgb(254, 193, 7);
+  color: black;
+  border-left: 20px solid rgb(230, 173, 6);
 }
 .dash-card h1 {
   font-size: 25px;
@@ -11742,7 +11764,6 @@ table td{
 }
 .dash-card p {
   font-size: 20px;
-  color: rgba(0, 0, 0, 0.6);
   margin-bottom: 5px;
 }
 
