@@ -30,7 +30,8 @@ public class ProfileController {
     }
 
     @PutMapping
-    public ResponseEntity<User> update(@RequestPart("image") MultipartFile image, @RequestPart User user) {
+    public ResponseEntity<User> update(@RequestPart(value = "image", required = false) MultipartFile image,
+            @RequestPart User user) {
         User updatedUser =  userService.update(user, image);
         return ResponseEntity.ok(updatedUser);
     }

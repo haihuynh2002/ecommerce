@@ -177,8 +177,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="saveProfile">Save changes</button>
+                    <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal" onclick="resetUserEditForm()">Close</button>
+                    <button type="submit" class="btn btn-primary" id="saveProfile">Save changes</button>
                 </div>
             </div>
         </div>
@@ -241,7 +241,8 @@
             $('#phone').text(user.phone);
             $('#gender').text(user.gender);
             $('#createdAt').text(user.createdAt);
-
+        }
+        function loadUserModal(user) {
             $('#inputUserId').val(user.id);
             $('#inputFirstName').val(user.firstName);
             $('#inputLastName').val(user.lastName);
@@ -332,6 +333,12 @@
             $('#confirmPassword').val('');
         }
 
+        function resetUserEditForm() {
+            $('#profileModal').on('hidden.bs.modal', function () {
+                $(this).find('form')[0].reset();
+
+            });
+        }
         $(document).ready(function () {
             $.ajax({
                 url: '/api/profile',
@@ -343,6 +350,12 @@
             loadPayments();
 
             $("#editProfile").click(function () {
+                $.ajax({
+                    url: '/api/profile',
+                    success: function (user) {
+                        loadUserModal(user);
+                    }
+                })
                 $('#profileModal').modal('show');
             });
 
@@ -373,6 +386,7 @@
                         loadUser(user);
                     }
                 });
+                resetUserEditForm();
             });
 
             $("#changePasswordForm").submit(function (e) {
