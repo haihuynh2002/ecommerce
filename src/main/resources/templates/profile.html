@@ -67,6 +67,9 @@
                                         <p id="gender"></p>
                                     </div>
                                 </div>
+                                <input type="text" id="password" hidden>
+                                <input type="text" id="role" hidden>
+                                <input type="text" id="createTime" hidden>
                                 <div class="row mt-3">
                                     <div class="col-md-6">
                                         <label>Join in</label>
@@ -238,6 +241,9 @@
             $('#userId').text(user.id);
             $('#fullName').text(user.firstName + " " + user.lastName);
             $('#username').text(user.username);
+            $("#password").val(user.password);
+            $('#role').val(user.role);
+            $('#createTime').val(user.createdAt);
             $('#phone').text(user.phone);
             $('#gender').text(user.gender);
             $('#createdAt').text(user.createdAt);
@@ -362,20 +368,23 @@
             $("#saveProfile").click(function () {
 
                 let formData = new FormData(document.getElementById("userForm"));
+                let userId= $('#inputUserId').val();
                 let user = {
-                    id: $('#inputUserId').val(),
                     firstName: $('#inputFirstName').val(),
                     lastName: $('#inputLastName').val(),
                     username: $('#inputUsername').val(),
+                    password: $('#password').val(),
+                    role: $('#role').val(),
                     gender: $('#inputGender').val(),
-                    phone: $('#inputPhone').val()
+                    phone: $('#inputPhone').val(),
+                    createdAt: $('#createTime').val()
                 }
 
                 formData.append("user", new Blob([JSON.stringify(user)], { type: "application/json" }));
                 formData.append("image", $("#image").prop('files')[0]);
 
                 $.ajax({
-                    url: '/api/profile',
+                    url: '/api/profile/'+userId,
                     method: 'PUT',
                     enctype: 'multipart/form-data',
                     processData: false,
