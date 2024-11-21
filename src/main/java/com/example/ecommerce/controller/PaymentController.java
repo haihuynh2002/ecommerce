@@ -23,6 +23,8 @@ import com.example.ecommerce.model.User;
 import com.example.ecommerce.service.PaymentService;
 import com.example.ecommerce.service.UserService;
 
+import lombok.extern.slf4j.Slf4j;
+
 
 /**
  *
@@ -30,6 +32,7 @@ import com.example.ecommerce.service.UserService;
  */
 @RestController
 @RequestMapping("/api/payment")
+@Slf4j
 public class PaymentController {
 
     @Autowired
@@ -59,8 +62,10 @@ public class PaymentController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Payment> update(@RequestBody Payment payment, @PathVariable("id") Long id) {
-        payment.setId(id);
+    public ResponseEntity<Payment> update(@RequestBody Payment payment, @PathVariable("id") Long id,
+    Authentication auth) {
+        User user = us.findByAuthentication(auth);
+        payment.setUser(user);
         ps.update(payment);
         return ResponseEntity.ok(payment);
     }

@@ -196,27 +196,31 @@
                         <input type="hidden" id="inputPaymentId">
                         <div class="mb-3">
                             <label for="inputType" class="col-form-label">Card Type:</label>
-                            <input type="text" class="form-control" id="inputType">
+                            <select class="form-select form-select-lg" id="inputType">
+                                <option value="DEBIT">DEBIT</option>
+                                <option value="DEBIT">CREDIT</option>
+                                <option value="VISA">VISA</option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="inputCardName" class="col-form-label">Card Name:</label>
-                            <input type="text" class="form-control" id="inputCardName">
+                            <input type="text" class="form-control" id="inputCardName" required>
                         </div>
                         <div class="mb-3">
                             <label for="inputCardNumber" class="col-form-label">Card Number:</label>
-                            <input type="number" class="form-control" id="inputCardNumber">
+                            <input type="text" class="form-control" id="inputCardNumber">
                         </div>
                         <div class="mb-3">
                             <label for="inputExpiryMonth" class="col-form-label">Expiry Month:</label>
-                            <input type="number" class="form-control" id="inputExpiryMonth">
+                            <input type="text" class="form-control" id="inputExpiryMonth">
                         </div>
                         <div class="mb-3">
                             <label for="inputExpiryYear" class="col-form-label">Expiry Year:</label>
-                            <input type="number" class="form-control" id="inputExpiryYear">
+                            <input type="text" class="form-control" id="inputExpiryYear">
                         </div>
                         <div class="mb-3">
                             <label for="inputCvc" class="col-form-label">CVC:</label>
-                            <input type="number" class="form-control" id="inputCvc">
+                            <input type="text" class="form-control" id="inputCvc">
                         </div>
                         <div class="mb-3">
                             <label for="inputHolderName" class="col-form-label">Holder Name:</label>
