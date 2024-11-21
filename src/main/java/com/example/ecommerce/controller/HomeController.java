@@ -9,13 +9,17 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.ecommerce.dto.OrderDto;
 import com.example.ecommerce.model.Payment;
+import com.example.ecommerce.model.Product;
 import com.example.ecommerce.model.User;
 import com.example.ecommerce.service.OrderService;
 import com.example.ecommerce.service.PaymentService;
+import com.example.ecommerce.service.ProductService;
 import com.example.ecommerce.service.UserService;
 
 import jakarta.validation.Valid;
@@ -32,11 +36,14 @@ public class HomeController {
     @Autowired
     OrderService os;
 
+    @Autowired
+    ProductService pdservice;
+
     @GetMapping
     public String index() {
         return "index";
     }
-
+    
     @GetMapping("/order")
     public String order() {
         return "order";
@@ -83,4 +90,17 @@ public class HomeController {
         model.addAttribute("user", user);
         return "profile";
     }
+
+    @GetMapping("/detail/{idProduct}")
+    public String detailProduct(@PathVariable ("idProduct") Long idProduct, Model model) {
+        Product productFind = pdservice.findById(idProduct);
+        model.addAttribute("product", productFind);
+        return "detail";
+    }
+
+    @GetMapping("/search")
+    public String searchProduct(@RequestParam("keywords") String keywords , Model model) {
+        return "redirect:/shop?keywords=" + keywords;
+    }
+    
 }

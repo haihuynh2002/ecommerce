@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.ecommerce.model.User;
 import com.example.ecommerce.service.ProductService;
@@ -38,16 +39,17 @@ public class UserAPIController {
     }
 
     @PostMapping
-    public ResponseEntity<User> create(User User) {
-        us.create(User);
-        System.out.println("Enabled: " + User.isEnabled());
+    public ResponseEntity<User> create(@RequestPart("image") MultipartFile image, @RequestPart User User) {
+        us.adminCreate(User, image);
         return ResponseEntity.ok(User);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> update(@PathVariable("id") Long id, @RequestBody User User) {
+    public ResponseEntity<User> update(@PathVariable("id") Long id,
+            @RequestPart(value = "image", required = false) MultipartFile image,
+            @RequestPart User User) {
         User.setId(id);
-        us.update(User, null);
+        us.update(User, image);
         return ResponseEntity.ok(User);
     }
 

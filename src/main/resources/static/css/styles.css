@@ -302,6 +302,7 @@ svg {
 }
 
 table {
+  table-layout: fixed; 
   caption-side: bottom;
   border-collapse: collapse;
 }
@@ -4064,14 +4065,17 @@ textarea.form-control-lg {
   align-items: center;
   justify-content: space-between;
 }
-.navbar-brand {
+/* .navbar-brand {
   padding-top: 0.3125rem;
   padding-bottom: 0.3125rem;
   margin-right: 1rem;
   font-size: 1.25rem;
   text-decoration: none;
   white-space: nowrap;
-}
+
+} */
+
+
 .navbar-nav {
   display: flex;
   flex-direction: column;
@@ -11705,4 +11709,64 @@ body {
   width: 20px !important;
   font-size: 0.75rem;
   border-radius: 0.25rem !important;
+}
+
+table td{
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  max-width: 150px;
+}
+
+.dash-top{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.dash-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 120px;
+  padding: 10px 20px;
+  text-align: left;
+  color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+.dash-body {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+.dc-theme-1{
+  background-color: rgb(23, 162, 183);
+  color: white;
+  border-left: 20px solid rgb(20, 145, 165);
+}
+.dc-theme-2 {
+  background-color: rgb(39, 168, 68);
+  color: white;
+  border-left: 20px solid rgb(36, 150, 62);
+}
+.dc-theme-3 {
+  background-color: rgb(254, 193, 7);
+  color: black;
+  border-left: 20px solid rgb(230, 173, 6);
+}
+.dash-card h1 {
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+.dash-card p {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.dataTables_filter{
+  margin-bottom: 10px;
 }

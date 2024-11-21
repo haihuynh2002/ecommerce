@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,10 +38,22 @@ public class ProductController {
     ProductService ps;
 
     @GetMapping
-    public List<Product> getAll() {
+    public List<Product> getAll(@RequestParam(required = false) String keywords) {
+        if (keywords != null && !keywords.isEmpty()) {
+
+            return ps.searchProducts(keywords);
+        } 
         return ps.findAll();
+
     }
 
+    @GetMapping("/instock")
+    int getInStockProduct() {
+        List<Product> products = ps.findAll();
+        List<Product> inStockProducts = products.stream().filter(p -> p.getIsInStock() == true).toList();
+
+        return inStockProducts.size();
+    }
     @GetMapping("/{id}")
     public ResponseEntity<Product> get(@PathVariable("id") Long id) {
         Product product = ps.findById(id);
@@ -49,15 +61,17 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> create(@RequestPart("image") MultipartFile image, @RequestPart Product product) {
+    public ResponseEntity<Product> create(@RequestPart("image") MultipartFile image,
+            @RequestPart Product product) {
         ps.create(product, image);
         return ResponseEntity.ok(product);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> update(@PathVariable("id") Long id, @RequestBody Product product) {
+    public ResponseEntity<Product> update(@PathVariable("id") Long id,
+            @RequestPart(value = "image", required = false) MultipartFile image, @RequestPart Product product) {
         product.setId(id);
-        ps.update(product);
+        ps.update(product, image);
         return ResponseEntity.ok(product);
     }
 

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,10 +30,13 @@ public class ProfileController {
         return ResponseEntity.ok(user);
     }
 
-    @PutMapping
-    public ResponseEntity<User> update(@RequestPart("image") MultipartFile image, @RequestPart User user) {
-        User updatedUser =  userService.update(user, image);
-        return ResponseEntity.ok(updatedUser);
+    @PutMapping("/{id}")
+    public ResponseEntity<User> update(@PathVariable("id") Long id,
+            @RequestPart(value = "image", required = false) MultipartFile image,
+            @RequestPart User user) {
+        user.setId(id);
+        userService.update(user, image);
+        return ResponseEntity.ok(user);
     }
 
     @PutMapping("/change-password")

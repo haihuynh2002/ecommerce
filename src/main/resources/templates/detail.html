@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{common/base :: head}"></head>
+    <style>   
+      .img-fluid{
+        width: 100%;
+        height: 100%;
+        } 
+    
+    </style>
+    <body>
+        <div th:replace="~{common/base :: loader}"></div>
+        <header th:replace="~{common/base :: header}"></header>
+        <script>
+          document.addEventListener("DOMContentLoaded",   function(){
+          let shopElement = document.querySelector('#shopPage');
+          let homePage = document.querySelector('#homePage');
+          homePage.classList.remove('active');
+          shopElement.classList.add('active');
+          });
+      </script>
+        <section class="single-product padding-large">
+            <div class="container">
+              <div class="row" >
+                <div class="col-lg-6">
+                  <div class="d-flex gap-3 product-preview">
+                    <div class="swiper thumb-swiper w-50 swiper-initialized swiper-horizontal swiper-backface-hidden swiper-thumbs">
+                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+                    <div class="swiper large-swiper border rounded-3 overflow-hidden swiper-fade swiper-initialized swiper-horizontal swiper-watch-progress swiper-backface-hidden">
+                      <div class="swiper-wrapper" id="swiper-wrapper-ef33bfc2e5930c8b" aria-live="polite" style="transition-duration: 0ms; transition-delay: 0ms;">
+                        <div class="swiper-slide bg-white swiper-slide-active swiper-slide-visible swiper-slide-fully-visible" role="group" aria-label="1 / 3" style="width: 100%; height: 100%; transition-duration: 0ms; opacity: 1; transform: translate3d(0px, 0px, 0px);">
+                          <img th:src="${product.imgUrl}" alt="single-product" class="img-fluid">
+                        </div>
+                        <div class="swiper-slide bg-white swiper-slide-next" role="group" aria-label="2 / 3" style="width: 562px; transition-duration: 0ms; opacity: 0; transform: translate3d(-562px, 0px, 0px);">
+                          <img src="images/product-large-2.png" alt="single-product" class="img-fluid">
+                        </div>
+                        <div class="swiper-slide bg-white" role="group" aria-label="3 / 3" style="width: 562px; transition-duration: 0ms; opacity: 0; transform: translate3d(-1124px, 0px, 0px);">
+                          <img src="images/product-large-3.png" alt="single-product" class="img-fluid">
+                        </div>
+                      </div>
+                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="product-info ps-lg-5 pt-3 pt-lg-0">
+                    <div class="element-header">
+                      <h1 class="product-title" th:text ="${product.name}"></h1>
+                      <div class="product-price d-flex align-items-center mt-2">
+                        <span class="fs-2 fw-light text-primary me-2">$[[${product.price}]]</span>
+   
+                      </div>
+                      <div class="rating text-warning d-flex align-items-center mb-2">
+                        <span th:text="${product.rating}" class="mt-1 mx-1"></span>
+                        
+                        <svg class="star star-fill">
+                            <use xlink:href="#star-fill"></use>
+                        </svg>
+                      </div>
+                    </div>
+                    <div>
+                      <p>
+                        <span th:text="${#strings.abbreviate(product.description, 50)}" title="${product.description}" style="width: 50%;">
+                        </span>
+                      </p>
+                    </div>
+                    
+                    <hr>
+                    <div class="cart- wrap">
+                      <div class="color-options product-select my-3">
+                       
+                      </div>
+                      <div class="swatch product-select" data-option-index="1">
+                        <h4 class="item-title text-decoration-underline text-capitalize">Size</h4>
+                        <ul class="select-list list-unstyled d-flex mb-0">
+                          <li data-value="S" class="select-item me-3">
+                            <a href="#">S</a>
+                          </li>
+                          <li data-value="M" class="select-item me-3">
+                            <a href="#">M</a>
+                          </li>
+                          <li data-value="L" class="select-item me-3">
+                            <a href="#">L</a>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="product-quantity my-3">
+                        <div class="item-title">
+                          <h4 class="item-title text-decoration-underline text-capitalize">Status</h4>
+                          <div>
+                            <span th:if="${product.isInStock == true}">In Stock</span>
+                            <span th:if="${product.isInStock == false}">Sold out</span>
+                            <span th:if="${product.isInStock == null}">Updating</span>
+
+                          </div>
+                        </div>
+                        <div class="stock-button-wrap mt-2 d-flex flex-wrap align-items-center">
+                          
+                        </div>
+                      </div>
+                      <div class="action-buttons my-3 d-flex flex-wrap gap-3">
+                        
+                        <a href="#" class="btn btn-dark" id="addToCart" th:onclick="'addToCart(' + ${product.id} + ')'">Add to cart</a>
+                      </div>
+                    </div>
+      <hr>
+                    <div class="meta-product my-3">
+                      <div class="meta-item d-flex mb-1">
+                        <span class="fw-medium me-2">SKU:</span>
+                        <ul class="select-list list-unstyled d-flex mb-0">
+                          <li data-value="S" class="select-item" > [[${product.code}]]</li>
+                        </ul>
+                      </div>
+                      <div class="meta-item d-flex mb-1">
+                        <span class="fw-medium me-2">Category: </span>
+                        <ul class="select-list list-unstyled d-flex mb-0">
+                            <li data-value="S" class="select-item" > <a href="">[[${product.category}]]</a></li>
+                          </ul>
+                      </div>
+                      <div class="meta-item d-flex mb-1">
+                        <span class="fw-medium me-2">Brand:</span>
+                        <ul class="select-list list-unstyled d-flex mb-0">
+                          <li data-value="S" class="select-item">
+                            <a href="#" th:text = "${product.brandName}"></a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        <footer th:replace="~{common/base :: footer}"></footer>
+      <script>
+
+        function addToCart(id) {
+            let product = null;
+            $.ajax({
+                url: `/api/cart`,
+                method: 'POST',
+                contentType: "application/json",
+                data: JSON.stringify({
+                    productId: id,
+                    quantity: 1
+                }),
+                success: function () {
+                    toastr.success('Product added to cart', 'Success');
+                    $.ajax({
+                        url: '/api/cart',
+                        method: 'GET',
+                        success: function (items) {
+                            $('#cart-content').html(items.map(item => `
+                                    <li
+                                    class="list-group-item bg-transparent d-flex justify-content-between lh-sm"
+                                    >
+                                    <div>
+                                        <h5>
+                                        <a href="index.html">${item.product.name}</a>
+                                        </h5>
+                                        <small>${item.product.brandName}</small>
+                                    </div>
+                                    <span class="text-primary">${item.product.price}</span>
+                                    </li>
+                                `).join(''));
+                            $('.cart-size').html(`( ${items.length} )`);
+                        }
+                    })
+
+                }
+            });
+        }
+      </script>
+    </body>
+
+</html>

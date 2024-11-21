@@ -18,6 +18,7 @@ public class OrderDetailDTO {
     private String userName;
     private String userEmail;
     private String userPhone;
+    private String userAddress;
 
     public void setCreatedAt(Date createdAt) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy, HH:mm");

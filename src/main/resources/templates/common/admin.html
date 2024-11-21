@@ -8,13 +8,14 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Admin</title>
+    <title>H&M Fashion</title>
     <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    
+
     <link
       rel="stylesheet"
       href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"
     />
-
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js" crossorigin="anonymous"></script>
@@ -23,7 +24,7 @@
   <header th:fragment="header">
     <nav class="sb-topnav navbar navbar-expand navbar-dark">
       <!-- Navbar Brand-->
-      <a class="navbar-brand ps-3" href="/admin">Admin</a>
+      <a class="navbar-brand ps-3 fw-bold text-decoration-none fs-2" href="/admin">Admin <i class="fa-solid fa-user-tie"></i></a>
       <!-- Sidebar Toggle-->
       <button
         class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
@@ -37,16 +38,16 @@
         class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"
       >
         <div class="input-group">
-          <input
+          <!-- <input
             class="form-control"
             type="text"
             placeholder="Search for..."
             aria-label="Search for..."
             aria-describedby="btnNavbarSearch"
-          />
-          <button class="btn btn-primary" id="btnNavbarSearch" type="button">
+          /> -->
+          <!-- <button class="btn btn-primary" id="btnNavbarSearch" type="button">
             <i class="fas fa-search"></i>
-          </button>
+          </button> -->
         </div>
       </form>
       <!-- Navbar-->
@@ -65,9 +66,6 @@
             class="dropdown-menu dropdown-menu-end"
             aria-labelledby="navbarDropdown"
           >
-            <li><a class="dropdown-item" href="#!">Settings</a></li>
-            <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-            <li><hr class="dropdown-divider" /></li>
             <li><a class="dropdown-item" href="/admin/logout">Logout</a></li>
           </ul>
         </li>
@@ -116,5 +114,7 @@
       crossorigin="anonymous"
     ></script>
     <script th:src="@{/js/scripts.js}"></script>
+    <script th:src="@{/js/chart.js}"></script>
+
   </footer>
 </html>

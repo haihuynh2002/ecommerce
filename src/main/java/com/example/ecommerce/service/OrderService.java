@@ -17,6 +17,7 @@ import com.example.ecommerce.model.Payment;
 import com.example.ecommerce.model.User;
 
 import com.example.ecommerce.dto.OrderListDTO;
+import com.example.ecommerce.dto.EarningDTO;
 import com.example.ecommerce.dto.OrderDetailDTO;
 import com.example.ecommerce.dto.OrderProductDTO;
 import com.example.ecommerce.model.Product;
@@ -25,6 +26,8 @@ import com.example.ecommerce.repository.OrderRepository;
 import com.example.ecommerce.repository.PaymentRepository;
 import com.example.ecommerce.repository.UserRepository;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -102,6 +105,7 @@ public class OrderService {
         dto.setUserEmail(user.getUsername());
         dto.setUserName(user.getFullName());
         dto.setUserPhone(user.getPhone());
+        dto.setUserAddress(user.getAddress());
         dto.setOrderID(orderID);
         dto.setCreatedAt(order.getCreatedAt());
         dto.setOrderShippingPrice(order.getShippingPrice());
@@ -120,5 +124,19 @@ public class OrderService {
             productsDTO.add(newOdPDTO);
         }
         return productsDTO;
+    }
+
+    public EarningDTO getEarning() {
+        EarningDTO earning = new EarningDTO();
+        List<OrderProduct> orders = opr.findAll();
+        List<Long> ordersIdMonth = or.findByMonth(LocalDate.now().getMonthValue(), LocalDate.now().getYear());
+        BigDecimal earningMonthly = orders.stream().filter(order -> ordersIdMonth.contains(order.getId().getOrderId()))
+                .map(OrderProduct::getTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
+        List<Long> ordersIdYear = or.findByYear(LocalDate.now().getYear());
+        BigDecimal earningYearly = orders.stream().filter(order -> ordersIdYear.contains(order.getId().getOrderId()))
+                .map(OrderProduct::getTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
+        earning.setEarningMonthly(earningMonthly);
+        earning.setEarningYearly(earningYearly);
+        return earning;
     }
 }

@@ -24,5 +24,4 @@ window.addEventListener('DOMContentLoaded', event => {
             layoutSidenav.classList.toggle('sidebar-visible');
         });
     }
-
-});
+})

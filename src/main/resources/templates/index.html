@@ -1,10 +1,143 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head th:replace="~{common/base :: head}"></head>
+    <link rel="stylesheet" type="text/css" href="/style.css" />
     <body>
         <div th:replace="~{common/base :: loader}"></div>
         <header th:replace="~{common/base :: header}"></header>
 
+        <div style="margin-top: 85px;">
+            <section id="billboard" class="position-relative d-flex align-items-center py-5 bg-light-gray" style="background-image: url(images/banner-image-bg.jpg); background-size: cover; background-repeat: no-repeat; background-position: center; height: 850px;">
+                  <div class="swiper main-swiper">
+                    <div class="swiper-wrapper d-flex align-items-center">
+                      <!-- Slide 1 -->
+                      <div class="swiper-slide">
+                        <div class="container">
+                          <div class="row d-flex flex-column-reverse flex-md-row align-items-center">
+                            <div class="col-md-5 offset-md-1 mt-5 mt-md-0 text-center text-md-start">
+                              <div class="banner-content">
+                                <h2>The Ethereal Essence Collection</h2>
+                                <p>Best Offer Save 30%. Grab it now!</p>
+                                <a href="/shop" class="btn mt-3">Shop Collection</a>
+                              </div>
+                            </div>
+                            <div class="col-md-6 text-center">
+                              <div class="image-holder">
+                                <img src="images/banner-image2.png" class="img-collection" alt="banner">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  
+                      <!-- Slide 2 -->
+                      <div class="swiper-slide">
+                        <div class="container">
+                          <div class="row d-flex flex-column-reverse flex-md-row align-items-center">
+                            <div class="col-md-5 offset-md-1 mt-5 mt-md-0 text-center text-md-start">
+                              <div class="banner-content">
+                                <h2>The Beyond Boundaries Collection</h2>
+                                <p>Discount available. Grab it now!</p>
+                                <a href="/shop" class="btn mt-3">Shop Collection</a>
+                              </div>
+                            </div>
+                            <div class="col-md-6 text-center">
+                              <div class="image-holder">
+                                <img src="images/banner-image1.png" class="img-collection" alt="banner">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  
+                      <!-- Slide 3 -->
+                      <div class="swiper-slide">
+                        <div class="container">
+                          <div class="row d-flex flex-column-reverse flex-md-row align-items-center">
+                            <div class="col-md-5 offset-md-1 mt-5 mt-md-0 text-center text-md-start">
+                              <div class="banner-content">
+                                <h2>The Pure Essentials Collection</h2>
+                                <p>Limited stocks available. Grab it now!</p>
+                                <a href="/shop" class="btn mt-3">Shop Collection</a>
+                              </div>
+                            </div>
+                            <div class="col-md-6 text-center">
+                              <div class="image-holder">
+                                <img src="images/banner-image.png" class="img-collection" alt="banner">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  
+                 
+                    
+                  </div>                  
+                  <div class="swiper-button-next"></div>
+                  <div class="swiper-button-prev"></div>
+                  <div class="swiper-pagination"></div>
+                <script>
+                  document.addEventListener("DOMContentLoaded", function () {
+                    const swiper = new Swiper('.main-swiper', {
+                      loop: true,             
+                      autoplay: {
+                        delay: 2500,           
+                        disableOnInteraction: false,
+                      },
+                      navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                      },
+                      pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                      },
+                      spaceBetween: 30,    
+                    });
+                  });
+                </script>
+                
+              </section>
+
+              <div class="mt-5 px-2">
+                <h3 class="text-center"> <u style="color: rgb(255, 130, 153);">The Biggest Label</u></h3>
+                <div class="row mt-5 px-5 ms-2">
+                  <div class="col-3"><a href="/shop"><img src="images/biggest_lable1.png" alt="" style="width: 95%; height: 80%;"></a></div>
+                  <div class="col-3"><a href="/shop"><img src="images/biggest_lable2.png" alt="" style="width: 95%; height: 80%;"></a></div>
+                  <div class="col-3"><a href="/shop"><img src="images/biggest_lable3.png" alt="" style="width: 95%; height: 80%;"></a></div>
+                  <div class="col-3"><a href="/shop"><img src="images/biggest_lable4.png" alt="" style="width: 95%; height: 80%;"></a></div>
+                </div>
+
+              </div>
+                <div class="row mb-5">
+                  <div class="col-6">
+                    <video width="655" height="380" autoplay muted loop style="margin-left: 70px;">
+                      <source src="images/video1.mp4" type="video/mp4">
+                      Trình duyệt của bạn không hỗ trợ thẻ video.
+                  </video>
+                  </div>
+                  <div class="col-6">
+                    <video width="655" height="380" autoplay muted loop style="margin-left: 10px;">
+                      <source src="images/video2.mp4" type="video/mp4">
+                      Trình duyệt của bạn không hỗ trợ thẻ video.
+                  </video>
+                  </div>
+              </div>
+              <div>
+                <h2 class="text-center">New In Collection</h2>
+                <div class="row mt-5 px-2 ms-5">
+                  <div class="col-6 "><img src="images/new-in3.png" alt="" style="width: 95%; height: 90%;" id="img-newin3"></div>
+                  <div class="col-6"><img src="images/new-in2.png" alt="" style="width: 95%; height: 90%;" id="img-newin2"></div>
+                 
+                    <img src="images/new-in1.png" alt="" style="width: 95.5%; height: 80%;" id="img-newin1">
+              
+                </div>
+
+                
+              
+              </div>
+        </div>
 
         <footer th:replace="~{common/base :: footer}"></footer>
     </body>

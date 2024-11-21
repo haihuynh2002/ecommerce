@@ -5,6 +5,7 @@
 package com.example.ecommerce.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ecommerce.dto.OrderListDTO;
+import com.example.ecommerce.dto.EarningDTO;
 import com.example.ecommerce.dto.OrderDetailDTO;
 import com.example.ecommerce.service.OrderService;
 import com.example.ecommerce.service.UserService;
@@ -40,4 +42,8 @@ public class OrderController {
         return os.getDetail(orderID);
     }
 
+    @GetMapping("/earnings")
+    public EarningDTO getEarnings() {
+        return os.getEarning();
+    }
 }
