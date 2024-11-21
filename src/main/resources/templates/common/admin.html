@@ -1,120 +1,103 @@
 <html xmlns:th="http://www.thymeleaf.org">
-  <head th:fragment="head">
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>H&M Fashion</title>
-    <link th:href="@{/css/styles.css}" rel="stylesheet" />
-    
 
-    <link
-      rel="stylesheet"
-      href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"
-    />
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link href="/css/styles.css" rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js" crossorigin="anonymous"></script>
-  </head>
+<head th:fragment="head">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>H&M Fashion</title>
+  <link th:href="@{/css/styles.css}" rel="stylesheet" />
 
-  <header th:fragment="header">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark">
-      <!-- Navbar Brand-->
-      <a class="navbar-brand ps-3 fw-bold text-decoration-none fs-2" href="/admin">Admin <i class="fa-solid fa-user-tie"></i></a>
-      <!-- Sidebar Toggle-->
-      <button
-        class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
-        id="sidebarToggle"
-        href="#!"
-      >
-        <i class="fas fa-bars"></i>
-      </button>
-      <!-- Navbar Search-->
-      <form
-        class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"
-      >
-        <div class="input-group">
-          <!-- <input
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+    integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="/css/toast-admin.css" rel="stylesheet" />
+</head>
+
+<header th:fragment="header">
+  <nav class="sb-topnav navbar navbar-expand navbar-dark">
+    <!-- Navbar Brand-->
+    <a class="navbar-brand ps-3 fw-bold text-decoration-none fs-2" href="/admin">Admin <i
+        class="fa-solid fa-user-tie"></i></a>
+    <!-- Sidebar Toggle-->
+    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!">
+      <i class="fas fa-bars"></i>
+    </button>
+    <!-- Navbar Search-->
+    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+      <div class="input-group">
+        <!-- <input
             class="form-control"
             type="text"
             placeholder="Search for..."
             aria-label="Search for..."
             aria-describedby="btnNavbarSearch"
           /> -->
-          <!-- <button class="btn btn-primary" id="btnNavbarSearch" type="button">
+        <!-- <button class="btn btn-primary" id="btnNavbarSearch" type="button">
             <i class="fas fa-search"></i>
           </button> -->
-        </div>
-      </form>
-      <!-- Navbar-->
-      <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            id="navbarDropdown"
-            href="#"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            ><i class="fas fa-user fa-fw"></i
-          ></a>
-          <ul
-            class="dropdown-menu dropdown-menu-end"
-            aria-labelledby="navbarDropdown"
-          >
-            <li><a class="dropdown-item" href="/admin/logout">Logout</a></li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
-  </header>
-
-  <div th:fragment="sidebar" id="layoutSidenav_nav">
-    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-      <div class="sb-sidenav-menu">
-        <div class="nav">
-          <div class="sb-sidenav-menu-heading">Core</div>
-          <a class="nav-link" href="/admin">
-            <div class="sb-nav-link-icon">
-              <i class="fas fa-tachometer-alt"></i>
-            </div>
-            Dashboard
-          </a>
-          <div class="sb-sidenav-menu-heading">Manager</div>
-          <a class="nav-link" href="/admin/products">
-            <div class="sb-nav-link-icon"><i class="fa-solid fa-shirt"></i></div>
-            Product
-          </a>
-          <a class="nav-link" href="/admin/users">
-            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-            User
-          </a>
-          <a class="nav-link" href="/admin/orders">
-            <div class="sb-nav-link-icon"><i class="fas fa-truck-fast"></i></div>
-            Order
-          </a>
-        </div>
       </div>
-    </nav>
-  </div>
-  <footer th:fragment="footer">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
-      crossorigin="anonymous"
-    ></script>
-    <script th:src="@{/js/scripts.js}"></script>
-    <script th:src="@{/js/chart.js}"></script>
+    </form>
+    <!-- Navbar-->
+    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+          aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" href="/admin/logout">Logout</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</header>
 
-  </footer>
+<div th:fragment="sidebar" id="layoutSidenav_nav">
+  <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+    <div class="sb-sidenav-menu">
+      <div class="nav">
+        <div class="sb-sidenav-menu-heading">Core</div>
+        <a class="nav-link" href="/admin">
+          <div class="sb-nav-link-icon">
+            <i class="fas fa-tachometer-alt"></i>
+          </div>
+          Dashboard
+        </a>
+        <div class="sb-sidenav-menu-heading">Manager</div>
+        <a class="nav-link" href="/admin/products">
+          <div class="sb-nav-link-icon"><i class="fa-solid fa-shirt"></i></div>
+          Product
+        </a>
+        <a class="nav-link" href="/admin/users">
+          <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+          User
+        </a>
+        <a class="nav-link" href="/admin/orders">
+          <div class="sb-nav-link-icon"><i class="fas fa-truck-fast"></i></div>
+          Order
+        </a>
+      </div>
+    </div>
+  </nav>
+</div>
+<footer th:fragment="footer">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+    integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script th:src="@{/js/scripts.js}"></script>
+  <script th:src="@{/js/chart.js}"></script>
+
+</footer>
+
 </html>

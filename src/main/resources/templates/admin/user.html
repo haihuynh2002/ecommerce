@@ -291,9 +291,14 @@
           contentType: false,
           data: formData,
           success: function () {
+            toastr.success("Product saved successfully", "Success");
             $("#UserModal").modal("hide");
             resetUserForm();
             table.ajax.reload();
+          },
+
+          error: function () {
+            toastr.error("Save user failed", "Error");
           }
         });
       });
@@ -325,8 +330,13 @@
           url: `/api/user/${id}`,
           method: "DELETE",
           success: function () {
+            toastr.success("Product deleted successfully", "Success");
             $("#UsersTable").DataTable().ajax.reload();
           },
+
+          error: function () {
+            toastr.error("Delete user failed", "Error");
+          }
         });
       }
     }

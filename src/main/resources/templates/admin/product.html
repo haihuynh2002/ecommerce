@@ -212,10 +212,15 @@
           contentType: false,
           data: formData,
           success: function () {
+            toastr.success("Success", "Product saved successfully");
             resetModal();
             $("#productModal").modal("hide");
             table.ajax.reload();
           },
+
+          error: function () {
+            toastr.error("Save product failed", "Error");
+          }
         });
       });
     });
@@ -248,8 +253,12 @@
           url: `/api/product/${id}`,
           method: "DELETE",
           success: function () {
+            toastr.success("Product deleted successfully", "Success");
             $("#productsTable").DataTable().ajax.reload();
           },
+          error: function () {
+            toastr.error("Delete product failed", "Error");
+          }
         });
       }
     }
